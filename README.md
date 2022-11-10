@@ -1,4 +1,4 @@
-# Face Recognition opencv
+# Face Recognition Opencv
 
 ## About
 this project is for the thesis of the end of my studies. It is about developing a web application for users to load and images and they will then received all faces contained in this images. The IA Face detection Service used in the backend is called [*****OpenCv*****](https://opencv.org/).
