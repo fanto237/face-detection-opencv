@@ -6,5 +6,5 @@ public interface IRepository
 {
     Task<Order> GetById(Guid id);
     Task<IEnumerable<Order>> GetByEmail(string Email);
-    Task<bool> Post(Order order);
+    Task<bool> Create(Order order);
 }
