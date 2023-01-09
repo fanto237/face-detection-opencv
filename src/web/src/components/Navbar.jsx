@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import logo from "../assets/logo.png";
+import { Link } from "react-router-dom";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 
 function Navbar() {
@@ -12,17 +13,32 @@ function Navbar() {
 
   return (
     <div className="flex items-center justify-between h-40 max-w-[1240px] px-4 mx-auto">
-      <img
-        src={logo}
-        alt="this is the logo of the site"
-        className="h-full"
-      ></img>
+      <Link to="/" className="h-full">
+        <img
+          src={logo}
+          alt="this is the logo of the site"
+          className="h-full"
+        ></img>
+      </Link>
 
       <ul className="hidden md:flex">
-        <li className="p-4 text-black bg-[#1bd4f1]  rounded">Get Started</li>
-        <li className="p-4 text-[#1bd4f1]">Status</li>
-        <li className="p-4 text-[#1bd4f1]">Terms of usage</li>
-        <li className="p-4 text-[#1bd4f1]">About</li>
+        <li className="p-4 text-black bg-[#1bd4f1]  rounded">
+          <Link to="/upload" className="text-black bg-[#1bd4f1]">
+            Get Started
+          </Link>
+        </li>
+        <li className="p-4 text-[#1bd4f1]">
+          {" "}
+          <Link to="/status">Status</Link>
+        </li>
+        <li className="p-4 text-[#1bd4f1]">
+          {" "}
+          <Link to="/terms-of-usage">Terms of usage</Link>
+        </li>
+        <li className="p-4 text-[#1bd4f1]">
+          {" "}
+          <Link to="/about">About</Link>
+        </li>
       </ul>
 
       <div onClick={handleNav} className="block md:hidden">
@@ -40,16 +56,38 @@ function Navbar() {
             : "fixed left-[-100%]"
         }
       >
-        <img
-          src={logo}
-          alt="this is the logo of the site"
-          className="h-40 mx-auto w-50"
-        ></img>
+        <Link to="/" className="h-full">
+          <img
+            src={logo}
+            alt="this is the logo of the site"
+            className="h-40 mx-auto w-50"
+          ></img>
+        </Link>
         <ul className="p-4 pt-12 text-center uppercase">
-          <li className="p-4 text-black bg-[#1bd4f1]">Get Started</li>
-          <li className="p-4 text-[#1bd4f1]">Status</li>
-          <li className="p-4 text-[#1bd4f1]">Terms of usage</li>
-          <li className="p-4 text-[#1bd4f1]">About</li>
+          <li className="p-4 text-black bg-[#1bd4f1] rounded">
+            <Link
+              to="/upload"
+              className="text-black bg-[#1bd4f1]"
+              onClick={handleNav}
+            >
+              Get Started
+            </Link>
+          </li>
+          <li className="p-4 text-[#1bd4f1]">
+            <Link to="/status" onClick={handleNav}>
+              Status
+            </Link>
+          </li>
+          <li className="p-4 text-[#1bd4f1]">
+            <Link to="/terms-of-usage" onClick={handleNav}>
+              Terms of usage
+            </Link>
+          </li>
+          <li className="p-4 text-[#1bd4f1]">
+            <Link to="/about" onClick={handleNav}>
+              About
+            </Link>
+          </li>
         </ul>
       </div>
     </div>
