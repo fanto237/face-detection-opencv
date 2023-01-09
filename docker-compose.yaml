@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+
+  #rabbitmq container service
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+    - "15672:15672"
+    - "5672:5672"
+
+  
+  # sql server container service
+  database:
+    image:  mcr.microsoft.com/mssql/server:2019-latest 
+    container_name: sql-server
+    ports:
+    - "1433:1433"
+    environment:
+    - "ACCEPT_EULA=Y"
+    - "MSSQL_SA_PASSWORD=f@nto237(!)"    
+    volumes: 
+    - "../database:/etc/mssql/server:ro"
+
+
