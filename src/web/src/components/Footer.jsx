@@ -6,6 +6,7 @@ function Footer() {
       Source code available{" "}
       <a
         target="_blank"
+        rel="noreferrer"
         href="https://github.com/fantoSama/face-recognize-opencv"
         className="ml-1 text-[#1bd4f1] underline"
       >
