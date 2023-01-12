@@ -14,4 +14,4 @@ Since all almost all compagnies are moving from monolythics applications to micr
 - 
 ## Architectur
 
-[Alt text](https://github.com/fantoSama/face-recognize-opencv/assets/Architectur.png "a title")
+[Alt text](https://github.com/fantoSama/face-recognize-opencv/blob/main/assets/Architectur.png "a title")
