@@ -9,4 +9,9 @@ Since all almost all compagnies are moving from monolythics applications to micr
 
 -  ``ASP .Net Core Web API`` : It is the .dotnet framework for building robust Rest based Api. Based on 2022 github survey Asp .net ranked 2 ( behind React Js by the ways ) in the top of the most liked framework, due to its simplicity and speed.
 
-- ``Open Cv`` : the face recognition. 
+- ``Open Cv`` : the face recognition.
+- 
+- 
+## Architectur
+
+[Alt text](https://github.com/fantoSama/face-recognize-opencv/assets/Architectur.png "a title")
