@@ -18,7 +18,7 @@ function Home() {
           </p>
           <Typed
             className="pl-2 text-xl font-bold text-[#1bd4f1] underline md:text-5xl sm:text-4xl"
-            strings={["EASY", "FLEXIBEL"]}
+            strings={["EASY", "FLEXIBEL", "RELIABLE"]}
             typeSpeed={100}
             backSpeed={110}
             loop
