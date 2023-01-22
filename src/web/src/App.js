@@ -13,14 +13,16 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route exact path="/status" element={<Status />} />
-        <Route exact path="/confirmation" element={<Confirmation />} />
-        <Route exact path="/about" element={<About />} />
-        <Route exact path="/upload" element={<Upload />} />
-        <Route exact path="/terms-of-usage" element={<Usage />} />
-      </Routes>
+      <div className="min-h-[80vh]">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route exact path="/status" element={<Status />} />
+          <Route exact path="/confirmation" element={<Confirmation />} />
+          <Route exact path="/about" element={<About />} />
+          <Route exact path="/upload" element={<Upload />} />
+          <Route exact path="/terms-of-usage" element={<Usage />} />
+        </Routes>
+      </div>
       <Footer />
     </BrowserRouter>
   );
