@@ -2,7 +2,7 @@ import React from "react";
 
 function Footer() {
   return (
-    <div className="flex items-center justify-center mb-1">
+    <div className="flex items-center justify-center h-[5vh]">
       Source code available{" "}
       <a
         target="_blank"
