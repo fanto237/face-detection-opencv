@@ -12,7 +12,7 @@ function Navbar() {
   };
 
   return (
-    <div className="flex items-center justify-between h-40 max-w-[1240px] px-4 mx-auto">
+    <div className="flex items-center justify-between h-[15vh] max-w-[1240px] px-4 mx-auto">
       <Link to="/" className="h-full">
         <img
           src={logo}
