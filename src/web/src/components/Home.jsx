@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 function Home() {
   return (
-    <div>
-      <div className="max-w-[800px] mt-40 md:mt-60 sm:mt-40 w-full h-[67vh] min-h-fit mx-auto text-center flex flex-col">
+    <div className="flex items-center justify-center h-[75vh]">
+      <div className="max-w-[800px] m-auto  text-center flex flex-col">
         <p className="uppercase text-[#1bd4f1] font-bold p-2">
           Detect any face from any image
         </p>
