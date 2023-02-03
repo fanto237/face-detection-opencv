@@ -109,7 +109,7 @@ function Upload() {
 
   return (
     <>
-      {isSubmitted ? <div className="flex flex-col items-center justify-center h-full mx-auto">
+      {isSubmitted ? <div className="flex flex-col items-center justify-center h-full pt-10 mx-auto">
         <div >
           <img className="w-[350px] h-[250px] sm:h-[450px] sm:w-[550px] md:h-[550px] md:w-[700px]" src={order.imageUrl} alt="selected" />
         </div>
