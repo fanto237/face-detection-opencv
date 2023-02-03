@@ -19,7 +19,8 @@ function App() {
           <Route exact path="/status" element={<Status />} />
           <Route exact path="/confirmation" element={<Confirmation />} />
           <Route exact path="/about" element={<About />} />
-          <Route exact path="/upload" element={<Upload />} />
+          <Route path="/upload/:type" element={<Upload />} />
+          <Route exact path="/confirmation" element={<Confirmation />} />
           <Route exact path="/terms-of-usage" element={<Usage />} />
         </Routes>
       </div>
