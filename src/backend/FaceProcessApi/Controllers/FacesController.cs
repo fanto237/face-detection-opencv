@@ -17,15 +17,18 @@ public class FacesController : Controller
     }
 
     [HttpPost]
-    [ProducesResponseType(statusCode: StatusCodes.Status200OK)]
-    [ProducesResponseType(statusCode:StatusCodes.Status400BadRequest)]
-    public async Task<Tuple<List<byte[]>, Guid>> ExtractFaces(Guid orderId)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<Tuple<List<byte[]>, Guid>>> ExtractFaces(Guid orderId)
     {
         using var ms = new MemoryStream();
         await Request.Body.CopyToAsync(ms);
         var bytes = ms.ToArray();
 
-        return new Tuple<List<byte[]>, Guid>(DetectAndSave(bytes), orderId);
+        if (bytes.Length is 0)
+            return BadRequest();
+
+        return Ok(new Tuple<List<byte[]>, Guid>(DetectAndSave(bytes), orderId));
     }
 
     private List<byte[]> DetectAndSave(byte[] bytes)
