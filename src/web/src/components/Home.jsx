@@ -32,7 +32,11 @@ function Home() {
           className="bg-[#1bd4f1] text-black w-40 mx-auto mt-6 rounded p-2"
         >
           {" "}
-          <Link to="/upload" className="text-black bg-[#1bd4f1]">
+          <Link to={{
+            pathname: "/upload/new-upload",
+          }}
+            state={{ stateParam: true }}
+            className="text-black bg-[#1bd4f1]">
             Get Started
           </Link>
         </button>
