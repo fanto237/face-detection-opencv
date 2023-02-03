@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using OrderApi.Data;
+﻿using OrderApi.Data;
 using OrderApi.Models;
 
 namespace OrderApi.Repository;
@@ -14,16 +13,10 @@ public class Repository : IRepository
     }
 
 
-    public async Task<Order> GetById(Guid id)
+    public async Task<Order?> GetById(Guid id)
     {
         var order = await _dbContext.Orders.FindAsync(id);
         return order;
-    }
-
-    public async Task<IEnumerable<Order>> GetByEmail(string email)
-    {
-        var result = await _dbContext.Orders.Where(entry => entry.Email == email).ToListAsync();
-        return result;
     }
 
 
