@@ -1,16 +1,19 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import instance from "../api/endPoint";
+import Confirmation from "./Confirmation";
 
-function Upload(props) {
+
+function Upload() {
 
   // TODO make sure to delete any useless comments
   const defaultImageUrl = '/img/default.jpg';
+
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const initialFieldValues = {
     orderId: crypto.randomUUID(),
     userName: '',
     email: '',
-    imageName: '',
     imageUrl: defaultImageUrl,
     imageFile: null
   }
@@ -26,27 +29,11 @@ function Upload(props) {
 
   const [isValid, setisValid] = useState({})
 
-  const resetOrder = () => {
-    setOrder(initialFieldValues);
-    order.orderId = crypto.randomUUID();
-    document.getElementById("image-uploader").value = null;
-  }
-
-  const postOrder = () => {
-    // posting order date to the api
-    // TODO add the endpoint
-    fetch("endpoint",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(order),
-      }
-    ).then(() => {
-      console.log("order post to the api");
-    })
-
-    resetOrder();
-  }
+  // const resetOrder = () => {
+  //   setOrder(initialFieldValues);
+  //   order.orderId = crypto.randomUUID();
+  //   document.getElementById("image-uploader").value = null;
+  // }
 
   const handleInputChange = e => {
     const { name, value } = e.target;
@@ -100,12 +87,30 @@ function Upload(props) {
     }
   }
 
+  const convertOrderAndSubmit = async () => {
+    const formDate = new FormData();
+    formDate.append("orderId", order.orderId);
+    formDate.append("userName", order.userName);
+    formDate.append("email", order.email);
+    formDate.append("imageUrl", order.imageUrl);
+    formDate.append("imageFile", order.imageFile);
+
+    console.log("order has been sent")
+    try {
+      const resp = await instance.post();
+      console.log("the response is: " + resp.data);
+    } catch (err) {
+      console.log("the error ist: " + err);
+    };
+  }
+
   const handleFormSubmit = e => {
     e.preventDefault();
     if (Validate()) {
+      setIsSubmitted(true);
       console.log("the form is valid");
       console.log("id of this order is: " + order.orderId);
-      postOrder();
+      convertOrderAndSubmit();
     } else {
       console.log("this form is not valid");
       console.log(applyErrorStyle())
@@ -120,19 +125,22 @@ function Upload(props) {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center md:h-[100vh] md:pt-0 pt-10 h-full mx-auto">
-        <div>
-          <img className="w-[350px] h-[250px] sm:h-[450px] sm:w-[550px] md:h-[550px] md:w-[700px]" src={order.imageUrl} alt="selected" />
-        </div>
-        <div className="my-4">
-          <form onSubmit={handleFormSubmit} className="flex flex-col items-center justify-center" autoComplete="off" noValidate>
-            <input type="file" id="image-uploader" className={styles.file + applyErrorStyle("imageUrl")} name="imageFile" accept="image/*" onChange={e => showPreview(e)} />
-            <input type="text" className={styles.input + applyErrorStyle("userName")} placeholder="enter your name" name="userName" value={order.userName} onChange={handleInputChange} />
-            <input type="text" className={styles.input + applyErrorStyle("email")} placeholder="enter your email" name="email" value={order.email} onChange={handleInputChange} />
-            <Link to="/confirmation" state={{ params: params }} ><button className={styles.button} type="submit">Submit Order</button></Link>
-          </form>
-        </div>
-      </div>
+      {isSubmitted ?
+        <Confirmation params={params} />
+        :
+        <div className="flex flex-col items-center justify-center md:h-[100vh] md:pt-0 pt-10 h-full mx-auto">
+          <div>
+            <img className="w-[350px] h-[250px] sm:h-[450px] sm:w-[550px] md:h-[550px] md:w-[700px]" src={order.imageUrl} alt="selected" />
+          </div>
+          <div className="my-4">
+            <form onSubmit={handleFormSubmit} className="flex flex-col items-center justify-center" autoComplete="off" noValidate>
+              <input type="file" id="image-uploader" className={styles.file + applyErrorStyle("imageUrl")} name="imageFile" accept="image/*" onChange={e => showPreview(e)} />
+              <input type="text" className={styles.input + applyErrorStyle("userName")} placeholder="enter your name" name="userName" value={order.userName} onChange={handleInputChange} />
+              <input type="text" className={styles.input + applyErrorStyle("email")} placeholder="enter your email" name="email" value={order.email} onChange={handleInputChange} />
+              <button className={styles.button} type="submit">Submit Order</button>
+            </form>
+          </div>
+        </div>}
     </>
   );
 }
