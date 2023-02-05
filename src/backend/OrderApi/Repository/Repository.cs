@@ -22,7 +22,7 @@ public class Repository : IRepository
 
     public async Task<bool> Create(Order order)
     {
-        await _dbContext.AddAsync(order);
+        await _dbContext.Orders.AddAsync(order);
         await _dbContext.SaveChangesAsync();
         return true;
     }
