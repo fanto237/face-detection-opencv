@@ -26,7 +26,7 @@ function Navbar(props) {
           <Link to={{
             pathname: "/upload/new-upload",
           }}
-            state={{ stateParam: true }}
+            state={{ confirm: false }}
             className="text-black bg-[#1bd4f1]">
             Get Started
           </Link>
@@ -73,7 +73,7 @@ function Navbar(props) {
               to={{
                 pathname: "/upload/new-upload",
               }}
-              state={{ stateParam: true }}
+              state={{ confirm: false }}
               className="text-black bg-[#1bd4f1]"
               onClick={handleNav}
             >
