@@ -6,7 +6,7 @@ import Confirmation from "./Confirmation";
 function Upload() {
 
   // TODO make sure to delete any useless comments
-  const defaultImageUrl = '/img/default.jpg';
+  const defaultImageName = '/img/default.jpg';
 
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -14,7 +14,7 @@ function Upload() {
     orderId: crypto.randomUUID(),
     userName: '',
     email: '',
-    imageUrl: defaultImageUrl,
+    imageName: defaultImageName,
     imageFile: null
   }
 
@@ -28,12 +28,6 @@ function Upload() {
   }
 
   const [isValid, setisValid] = useState({})
-
-  // const resetOrder = () => {
-  //   setOrder(initialFieldValues);
-  //   order.orderId = crypto.randomUUID();
-  //   document.getElementById("image-uploader").value = null;
-  // }
 
   const handleInputChange = e => {
     const { name, value } = e.target;
@@ -53,7 +47,7 @@ function Upload() {
         setOrder({
           ...order,
           imageFile: imgFile,
-          imageUrl: x.target.result,
+          imageName: x.target.result,
         })
       }
       reader.readAsDataURL(imgFile);
@@ -61,7 +55,7 @@ function Upload() {
       setOrder({
         ...order,
         imageFile: null,
-        imageUrl: defaultImageUrl,
+        imageName: defaultImageName,
       })
     }
   }
@@ -70,9 +64,9 @@ function Upload() {
     const fieldValidator = {};
     fieldValidator.userName = order.userName === "" ? false : true;
     fieldValidator.email = order.email === "" ? false : true;
-    fieldValidator.imageUrl = order.imageUrl === defaultImageUrl ? false : true;
+    fieldValidator.imageName = order.imageName === defaultImageName ? false : true;
     setisValid(fieldValidator);
-    // return fieldValidator.email && fieldValidator.name && fieldValidator.imageUrl;
+    // return fieldValidator.email && fieldValidator.name && fieldValidator.imageName;
     // Object.value will return all elements of fieldValidator 
     // then with every the iterate through thoses elements and test if all of them are true => if so then the whole instruction if true
     return Object.values(fieldValidator).every(x => x === true);
@@ -88,17 +82,21 @@ function Upload() {
   }
 
   const convertOrderAndSubmit = async () => {
-    const formDate = new FormData();
-    formDate.append("orderId", order.orderId);
-    formDate.append("userName", order.userName);
-    formDate.append("email", order.email);
-    formDate.append("imageUrl", order.imageUrl);
-    formDate.append("imageFile", order.imageFile);
+    const form_data = new FormData();
+    form_data.append("orderId", order.orderId);
+    form_data.append("userName", order.userName);
+    form_data.append("email", order.email);
+    form_data.append("imageName", order.imageName);
+    form_data.append("imageFile", order.imageFile);
+
+    // for (var item of form_data) {
+    //   console.log(item[0] + " : " + item[1]);
+    // }
 
     console.log("order has been sent")
     try {
-      const resp = await instance.post();
-      console.log("the response is: " + resp.data);
+      const resp = await instance.post("/api/orders", form_data);
+      console.log("the response is: " + resp.data.json);
     } catch (err) {
       console.log("the error ist: " + err);
     };
@@ -130,11 +128,11 @@ function Upload() {
         :
         <div className="flex flex-col items-center justify-center md:h-[100vh] md:pt-0 pt-10 h-full mx-auto">
           <div>
-            <img className="w-[350px] h-[250px] sm:h-[450px] sm:w-[550px] md:h-[550px] md:w-[700px]" src={order.imageUrl} alt="selected" />
+            <img className="w-[350px] h-[250px] sm:h-[450px] sm:w-[550px] md:h-[550px] md:w-[700px]" src={order.imageName} alt="selected" />
           </div>
           <div className="my-4">
             <form onSubmit={handleFormSubmit} className="flex flex-col items-center justify-center" autoComplete="off" noValidate>
-              <input type="file" id="image-uploader" className={styles.file + applyErrorStyle("imageUrl")} name="imageFile" accept="image/*" onChange={e => showPreview(e)} />
+              <input type="file" id="image-uploader" className={styles.file + applyErrorStyle("imageName")} name="imageFile" accept="image/*" onChange={e => showPreview(e)} />
               <input type="text" className={styles.input + applyErrorStyle("userName")} placeholder="enter your name" name="userName" value={order.userName} onChange={handleInputChange} />
               <input type="text" className={styles.input + applyErrorStyle("email")} placeholder="enter your email" name="email" value={order.email} onChange={handleInputChange} />
               <button className={styles.button} type="submit">Submit Order</button>
