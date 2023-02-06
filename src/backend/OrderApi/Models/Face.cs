@@ -5,9 +5,7 @@ namespace OrderApi.Models;
 
 public class Face
 {
-    private byte[] FaceData;
-
     [Key] [Required] [DisplayName("Id")] public Guid Id { get; set; }
-
     [DisplayName("Order Id")] public Guid OrderId { get; set; }
+    private byte[] FaceData;
 }
