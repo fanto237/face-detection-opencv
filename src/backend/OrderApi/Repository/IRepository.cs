@@ -4,6 +4,8 @@ namespace OrderApi.Repository;
 
 public interface IRepository
 {
+    Task<IEnumerable<Order>> Get();
     Task<Order?> GetById(Guid id);
-    Task<bool> Create(Order order);
+    Task Create(Order order);
+    Task Save();
 }
