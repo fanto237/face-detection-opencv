@@ -52,7 +52,7 @@ namespace OrderApi.Migrations
                         .IsRequired()
                         .HasColumnType("bytea");
 
-                    b.Property<string>("ImageUrl")
+                    b.Property<string>("ImageName")
                         .IsRequired()
                         .HasColumnType("text");
 
