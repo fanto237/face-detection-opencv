@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OrderApi.Mapping;
 using OrderApi.Models;
 using OrderApi.Repository;
 
@@ -6,13 +7,15 @@ namespace OrderApi.Controllers;
 
 [ApiController]
 [Route("/api/[controller]")]
-public class OrderController : Controller
+public class OrdersController : Controller
 {
     private readonly IRepository _repository;
+    private readonly IMapper _mapper;
 
-    public OrderController(IRepository repository)
+    public OrdersController(IRepository repository, IMapper mapper)
     {
         _repository = repository;
+        _mapper = mapper;
     }
 
     [HttpGet]
@@ -40,13 +43,14 @@ public class OrderController : Controller
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> Create([FromForm] Order order)
+    public async Task<ActionResult> Create([FromForm] OrderCreateDto model)
     {
-        order.ImageData = await ConvertToByte(order.imageFile);
-        order.ImageName = GenerateImageName(order.imageFile);
+        var order = _mapper.Map(model);
+        order.ImageData = await ConvertToByte(order.ImageFile);
+        order.ImageName = GenerateImageName(order.ImageFile);
         order.Status = OrderStatus.Registered;
         await _repository.Create(order);
-        // todo produce an event that the order has been registered and process it to rabbitmq
+        await PublishCommand(order);
         return CreatedAtRoute("GetOrder", new { id = order.OrderId }, order);
     }
 
@@ -72,9 +76,9 @@ public class OrderController : Controller
 
 
     // todo publish
-    // [NonAction]
-    // private static async Task PublishCommand()
-    // {
-    //     
-    // }
+    [NonAction]
+    private static async Task PublishCommand(Order order)
+    {
+        
+    }
 }
