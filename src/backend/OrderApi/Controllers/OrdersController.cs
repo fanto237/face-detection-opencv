@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MassTransit;
+using Microsoft.AspNetCore.Mvc;
 using OrderApi.Mapping;
 using OrderApi.Models;
 using OrderApi.Repository;
+using SharedLib.Contracts;
 
 namespace OrderApi.Controllers;
 
@@ -11,11 +13,13 @@ public class OrdersController : Controller
 {
     private readonly IRepository _repository;
     private readonly IMapper _mapper;
+    private readonly IPublishEndpoint _publishEndpoint;
 
-    public OrdersController(IRepository repository, IMapper mapper)
+    public OrdersController(IRepository repository, IMapper mapper, IPublishEndpoint publishEndpoint)
     {
         _repository = repository;
         _mapper = mapper;
+        _publishEndpoint = publishEndpoint;
     }
 
     [HttpGet]
@@ -50,7 +54,12 @@ public class OrdersController : Controller
         order.ImageName = GenerateImageName(order.ImageFile);
         order.Status = OrderStatus.Registered;
         await _repository.Create(order);
-        await PublishCommand(order);
+        await _publishEndpoint.Publish<IOrderRegisteredEvent>(new 
+        {
+            order.OrderId,
+            order.ImageData,
+            // order.Faces,
+        } );
         return CreatedAtRoute("GetOrder", new { id = order.OrderId }, order);
     }
 
