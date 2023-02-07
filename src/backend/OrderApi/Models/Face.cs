@@ -7,5 +7,5 @@ public class Face
 {
     [Key] [Required] [DisplayName("Id")] public Guid Id { get; set; }
     [DisplayName("Order Id")] public Guid OrderId { get; set; }
-    private byte[] FaceData;
+    public byte[] FaceData { get; set; }
 }
