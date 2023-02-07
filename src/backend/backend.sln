@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageProcessing", "ImagePro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaceProcessApi", "FaceProcessApi\FaceProcessApi.csproj", "{7C426ABC-3B9D-4E4A-96B2-919000B6831A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLib", "SharedLib\SharedLib.csproj", "{C28E01E1-63C7-4A37-976B-FD775F308AA8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{7C426ABC-3B9D-4E4A-96B2-919000B6831A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C426ABC-3B9D-4E4A-96B2-919000B6831A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C426ABC-3B9D-4E4A-96B2-919000B6831A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C28E01E1-63C7-4A37-976B-FD775F308AA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C28E01E1-63C7-4A37-976B-FD775F308AA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C28E01E1-63C7-4A37-976B-FD775F308AA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C28E01E1-63C7-4A37-976B-FD775F308AA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
