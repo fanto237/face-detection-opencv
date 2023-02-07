@@ -1,8 +1,10 @@
+using MassTransit.MultiBus;
 using Microsoft.EntityFrameworkCore;
 using OrderApi.Data;
 using OrderApi.Mapping;
-using OrderApi.Models;
+using MassTransit;
 using OrderApi.Repository;
+using SharedLib;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("orderDbConnectionString");
@@ -23,6 +25,18 @@ builder.Services.AddCors(op => op.AddPolicy("cors-policy", policyBuilder =>
 {
     policyBuilder.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod();
 }));
+
+builder.Services.AddMassTransit(config =>
+{
+    config.UsingRabbitMq((context, configTrans) =>
+    {
+        configTrans.Host("localhost", "/", configHost =>
+        {
+            configHost.Username(RabbitMqConstants.RmqUsername);
+            configHost.Password(RabbitMqConstants.RmqPassword);
+        });
+    });
+});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
