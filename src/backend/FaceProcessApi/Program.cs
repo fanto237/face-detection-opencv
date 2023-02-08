@@ -16,18 +16,18 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddMassTransit(config =>
 {
-    config.AddConsumer<OrderRegisterdConsumer>();
+    config.AddConsumer<OrderRegisteredConsumer>();
     config.UsingRabbitMq((ctx, cfg) =>
     {
-        cfg.Host("localhost", "/", cfgHost =>
+        cfg.Host(RabbitMqConstants.RmqUri, "/", cfgHost =>
         {
             cfgHost.Username(RabbitMqConstants.RmqUsername);
             cfgHost.Password(RabbitMqConstants.RmqPassword);
         });
         
-        cfg.ReceiveEndpoint(RabbitMqConstants.OrderProcessedEvent, configEndpoint =>
+        cfg.ReceiveEndpoint(RabbitMqConstants.OrderRegisteredEventQueueName, configEndpoint =>
         {
-            configEndpoint.ConfigureConsumer<OrderRegisterdConsumer>(ctx);
+            configEndpoint.ConfigureConsumer<OrderRegisteredConsumer>(ctx);
         } );
     });
 });
