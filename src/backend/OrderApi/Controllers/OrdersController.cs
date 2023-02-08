@@ -11,13 +11,13 @@ namespace OrderApi.Controllers;
 [Route("/api/[controller]")]
 public class OrdersController : Controller
 {
-    private readonly IRepository _repository;
+    private readonly IOrderRepository _orderRepository;
     private readonly IMapper _mapper;
     private readonly IPublishEndpoint _publishEndpoint;
 
-    public OrdersController(IRepository repository, IMapper mapper, IPublishEndpoint publishEndpoint)
+    public OrdersController(IOrderRepository orderRepository, IMapper mapper, IPublishEndpoint publishEndpoint)
     {
-        _repository = repository;
+        _orderRepository = orderRepository;
         _mapper = mapper;
         _publishEndpoint = publishEndpoint;
     }
@@ -26,7 +26,7 @@ public class OrdersController : Controller
     public async Task<IEnumerable<Order>> Get()
     {
         Console.WriteLine("get all is been called");
-        return await _repository.Get();
+        return await _orderRepository.Get();
     }
     
     [HttpGet("{id:guid}", Name = "GetOrder")]
@@ -40,7 +40,7 @@ public class OrdersController : Controller
             // todo add logging
             return BadRequest();
 
-        var order = await _repository.GetById(id);
+        var order = await _orderRepository.GetById(id);
         return order;
     }
 
@@ -53,7 +53,7 @@ public class OrdersController : Controller
         order.ImageData = await ConvertToByte(order.ImageFile);
         order.ImageName = GenerateImageName(order.ImageFile);
         order.Status = OrderStatus.Registered;
-        await _repository.Create(order);
+        await _orderRepository.Create(order);
         await _publishEndpoint.Publish<IOrderRegisteredEvent>(new 
         {
             order.OrderId,
