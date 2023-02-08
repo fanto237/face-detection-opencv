@@ -2,7 +2,7 @@
 
 namespace OrderApi.Repository;
 
-public interface IRepository
+public interface IOrderRepository
 {
     Task<IEnumerable<Order>> Get();
     Task<Order?> GetById(Guid id);
