@@ -4,11 +4,11 @@ using OrderApi.Models;
 
 namespace OrderApi.Repository;
 
-public class Repository : IRepository
+public class OrderRepository : IOrderRepository
 {
     private readonly ApplicationDbContext _dbContext;
 
-    public Repository(ApplicationDbContext dbContext)
+    public OrderRepository(ApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
     }

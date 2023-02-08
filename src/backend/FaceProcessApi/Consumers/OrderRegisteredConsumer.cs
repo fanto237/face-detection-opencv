@@ -18,8 +18,12 @@ public class OrderRegisterdConsumer : IConsumer<IOrderRegisteredEvent>
     public Task Consume(ConsumeContext<IOrderRegisteredEvent> context)
     {
         var msg = context.Message;
-        // order = _faceHandler.ExtractFaces(order);
-        // _publishEndpoint.Publish(order);
+        msg.FaceData = _faceHandler.ExtractFaces(msg.ImageData);
+        _publishEndpoint.Publish<IOrderProcessedEvent>(new
+        {
+            msg.OrderId,
+            msg.FaceData,
+        });
 
         _logger.LogInformation($"the new order id is: {msg.OrderId}");
         

@@ -351,3 +351,4 @@ MigrationBackup/
 .idea/
 .vscode
 src/backend/FaceProcessApi/face_number*
+src/backend/FaceProcessApi/Images/
