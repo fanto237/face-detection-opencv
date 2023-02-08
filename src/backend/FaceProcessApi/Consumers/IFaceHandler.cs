@@ -2,5 +2,5 @@
 
 public interface IFaceHandler
 {
-    List<byte[]> ExtractFaces(byte[] imageData);
+    Task<List<byte[]>> ExtractFaces(byte[] imageData);
 }

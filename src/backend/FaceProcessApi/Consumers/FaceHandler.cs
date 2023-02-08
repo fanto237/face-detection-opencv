@@ -13,13 +13,13 @@ public class  FaceHandler : IFaceHandler
         _cascadeClassifierFaces.Load(path);
     }
 
-    public List<byte[]> ExtractFaces(byte[] imageData)
+    public async Task<List<byte[]>> ExtractFaces(byte[] imageData)
     {
-        var bytesList = DetectAndSave(imageData);
-        return bytesList;
+        return await DetectAndSave(imageData);
+        
     }
 
-    private List<byte[]> DetectAndSave(byte[] bytes)
+    private Task<List<byte[]>> DetectAndSave(byte[] bytes)
     {
         using var srcImage = Cv2.ImDecode(bytes, ImreadModes.Color);
         using var grayScale = new Mat();
@@ -35,9 +35,9 @@ public class  FaceHandler : IFaceHandler
         {
             using var face = new Mat(srcImage, facesRectangles[i]);
             facesBytes.Add(face.ToBytes(".jpg"));
-            face.SaveImage($"face_number-{i}.jpg", new ImageEncodingParam(ImwriteFlags.JpegProgressive, 255));
+            face.SaveImage($"./Images/face_number-{i}.jpg", new ImageEncodingParam(ImwriteFlags.JpegProgressive, 255));
         }
 
-        return facesBytes;
+        return Task.FromResult(facesBytes);
     }
 }
