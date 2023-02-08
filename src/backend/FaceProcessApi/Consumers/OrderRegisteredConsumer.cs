@@ -3,30 +3,28 @@ using SharedLib.Contracts;
 
 namespace FaceProcessApi.Consumers;
 
-public class OrderRegisterdConsumer : IConsumer<IOrderRegisteredEvent>
+public class OrderRegisteredConsumer : IConsumer<IOrderRegisteredEvent>
 {
-    private readonly ILogger<OrderRegisterdConsumer> _logger;
+    private readonly ILogger<OrderRegisteredConsumer> _logger;
     private readonly IPublishEndpoint _publishEndpoint;
     private readonly IFaceHandler _faceHandler;
 
-    public OrderRegisterdConsumer(ILogger<OrderRegisterdConsumer> logger, IPublishEndpoint publishEndpoint, IFaceHandler faceHandler)
+    public OrderRegisteredConsumer(ILogger<OrderRegisteredConsumer> logger, IPublishEndpoint publishEndpoint, IFaceHandler faceHandler)
     {
         _logger = logger;
         _publishEndpoint = publishEndpoint;
         _faceHandler = faceHandler;
     }
-    public Task Consume(ConsumeContext<IOrderRegisteredEvent> context)
+    public async Task Consume(ConsumeContext<IOrderRegisteredEvent> context)
     {
         var msg = context.Message;
-        msg.FaceData = _faceHandler.ExtractFaces(msg.ImageData);
-        _publishEndpoint.Publish<IOrderProcessedEvent>(new
+        msg.FaceData = await _faceHandler.ExtractFaces(msg.ImageData);
+        await _publishEndpoint.Publish<IOrderProcessedEvent>(new
         {
             msg.OrderId,
             msg.FaceData,
         });
 
-        _logger.LogInformation($"the new order id is: {msg.OrderId}");
-        
-        return Task.CompletedTask;
+        _logger.LogInformation($"the new order contains: {msg.FaceData.Count} faces");
     }
 }
