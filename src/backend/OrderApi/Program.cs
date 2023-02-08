@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using OrderApi.Data;
 using OrderApi.Mapping;
 using MassTransit;
+using OrderApi.Consumers;
 using OrderApi.Repository;
 using SharedLib;
 
@@ -17,7 +18,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(
     // configuring the context to use the postgres provider
     options => options.UseNpgsql(connectionString) 
 );
-builder.Services.AddScoped<IRepository, Repository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IFaceRepository, FaceRepository>();
 builder.Services.AddSingleton<IMapper, Mapper>();
 
 // registering and configuring asp.net.cors services to allow api call from others url or port
@@ -28,12 +30,18 @@ builder.Services.AddCors(op => op.AddPolicy("cors-policy", policyBuilder =>
 
 builder.Services.AddMassTransit(config =>
 {
+    config.AddConsumer<OrderProcessedConsumer>();
     config.UsingRabbitMq((context, configTrans) =>
     {
-        configTrans.Host("localhost", "/", configHost =>
+        configTrans.Host(RabbitMqConstants.RmqUri, "/", configHost =>
         {
             configHost.Username(RabbitMqConstants.RmqUsername);
             configHost.Password(RabbitMqConstants.RmqPassword);
+        });
+        
+        configTrans.ReceiveEndpoint(RabbitMqConstants.OrderProcessedEventQueueName, configEndpoint =>
+        {
+            configEndpoint.ConfigureConsumer<OrderProcessedConsumer>(context);
         });
     });
 });
