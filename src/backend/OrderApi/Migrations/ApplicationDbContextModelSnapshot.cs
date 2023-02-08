@@ -28,6 +28,10 @@ namespace OrderApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<byte[]>("FaceData")
+                        .IsRequired()
+                        .HasColumnType("bytea");
+
                     b.Property<Guid>("OrderId")
                         .HasColumnType("uuid");
 
