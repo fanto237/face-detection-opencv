@@ -1,15 +1,50 @@
+using MassTransit.MultiBus;
 using Microsoft.EntityFrameworkCore;
 using OrderApi.Data;
+using OrderApi.Mapping;
+using MassTransit;
+using OrderApi.Consumers;
 using OrderApi.Repository;
+using SharedLib;
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("orderDbConnectionString");
+var frontEndUrl = builder.Configuration.GetValue<string>("frontend_url");
 
 // Add services to the container.
 
-var connectionString = builder.Configuration.GetConnectionString("SqlConnectionString");
 builder.Services.AddControllers();
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
-builder.Services.AddSingleton<IRepository, Repository>();
+builder.Services.AddDbContext<ApplicationDbContext>(
+    // configuring the context to use the postgres provider
+    options => options.UseNpgsql(connectionString) 
+);
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IFaceRepository, FaceRepository>();
+builder.Services.AddSingleton<IMapper, Mapper>();
+
+// registering and configuring asp.net.cors services to allow api call from others url or port
+builder.Services.AddCors(op => op.AddPolicy("cors-policy", policyBuilder =>
+{
+    policyBuilder.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod();
+}));
+
+builder.Services.AddMassTransit(config =>
+{
+    config.AddConsumer<OrderProcessedConsumer>();
+    config.UsingRabbitMq((context, configTrans) =>
+    {
+        configTrans.Host(RabbitMqConstants.RmqUri, "/", configHost =>
+        {
+            configHost.Username(RabbitMqConstants.RmqUsername);
+            configHost.Password(RabbitMqConstants.RmqPassword);
+        });
+        
+        configTrans.ReceiveEndpoint(RabbitMqConstants.OrderProcessedEventQueueName, configEndpoint =>
+        {
+            configEndpoint.ConfigureConsumer<OrderProcessedConsumer>(context);
+        });
+    });
+});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -20,11 +55,15 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
+
+// adding a middleware for using asp.net.cors
+app.UseCors("cors-policy");
 
 app.UseAuthorization();
 

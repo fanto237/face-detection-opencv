@@ -5,14 +5,15 @@ VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderApi", "OrderApi\OrderApi.csproj", "{8D98B77A-F362-420F-8769-4A120518D74B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FaceDetection", "FaceDetectionApi\FaceDetection.csproj", "{D354E335-74EA-45CE-B2A5-9AD5C549B723}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationService", "NotificationService\NotificationService.csproj", "{DA7216BA-941C-46E7-A37E-7574340C1DC6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailService", "MailService\MailService.csproj", "{DA7216BA-941C-46E7-A37E-7574340C1DC6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageProcessing", "ImageProcessing\ImageProcessing.csproj", "{B3205C35-10A9-4EE0-928F-12E79531BE3F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7CCA19E4-706E-4304-A8EE-56B2344E2C64}"
-	ProjectSection(SolutionItems) = preProject
-		docker-compose.yaml = docker-compose.yaml
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaceProcessApi", "FaceProcessApi\FaceProcessApi.csproj", "{7C426ABC-3B9D-4E4A-96B2-919000B6831A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLib", "SharedLib\SharedLib.csproj", "{C28E01E1-63C7-4A37-976B-FD775F308AA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSharedLib", "EmailSharedLib\EmailSharedLib.csproj", "{5D061D15-BCF3-422C-A7B7-E8DE65FB7F22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,19 +25,33 @@ Global
 		{8D98B77A-F362-420F-8769-4A120518D74B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D98B77A-F362-420F-8769-4A120518D74B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D98B77A-F362-420F-8769-4A120518D74B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D354E335-74EA-45CE-B2A5-9AD5C549B723}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D354E335-74EA-45CE-B2A5-9AD5C549B723}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D354E335-74EA-45CE-B2A5-9AD5C549B723}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D354E335-74EA-45CE-B2A5-9AD5C549B723}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DA7216BA-941C-46E7-A37E-7574340C1DC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DA7216BA-941C-46E7-A37E-7574340C1DC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA7216BA-941C-46E7-A37E-7574340C1DC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA7216BA-941C-46E7-A37E-7574340C1DC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3205C35-10A9-4EE0-928F-12E79531BE3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3205C35-10A9-4EE0-928F-12E79531BE3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3205C35-10A9-4EE0-928F-12E79531BE3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3205C35-10A9-4EE0-928F-12E79531BE3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C426ABC-3B9D-4E4A-96B2-919000B6831A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C426ABC-3B9D-4E4A-96B2-919000B6831A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C426ABC-3B9D-4E4A-96B2-919000B6831A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C426ABC-3B9D-4E4A-96B2-919000B6831A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C28E01E1-63C7-4A37-976B-FD775F308AA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C28E01E1-63C7-4A37-976B-FD775F308AA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C28E01E1-63C7-4A37-976B-FD775F308AA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C28E01E1-63C7-4A37-976B-FD775F308AA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D061D15-BCF3-422C-A7B7-E8DE65FB7F22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D061D15-BCF3-422C-A7B7-E8DE65FB7F22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D061D15-BCF3-422C-A7B7-E8DE65FB7F22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D061D15-BCF3-422C-A7B7-E8DE65FB7F22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {724E9CA7-4364-4CF0-956A-224E7C3ED609}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 EndGlobal

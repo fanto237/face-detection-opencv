@@ -1,9 +1,8 @@
-﻿namespace OrderApi.Models
+﻿namespace OrderApi.Models;
+
+public enum OrderStatus
 {
-    public enum OrderStatus
-    {
-        Registered,
-        Processed,
-        Sent,
-    }
+    Registered,
+    Processed,
+    Sent
 }

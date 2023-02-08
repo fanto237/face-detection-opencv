@@ -349,3 +349,6 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 .idea/
+.vscode
+src/backend/FaceProcessApi/face_number*
+src/backend/FaceProcessApi/Images/

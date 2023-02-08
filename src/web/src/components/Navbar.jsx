@@ -3,7 +3,7 @@ import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 
-function Navbar() {
+function Navbar(props) {
   const [isMobil, SetIsMobil] = useState(false);
 
   const handleNav = () => {
@@ -23,7 +23,11 @@ function Navbar() {
 
       <ul className="hidden md:flex">
         <li className="p-4 text-black bg-[#1bd4f1]  rounded">
-          <Link to="/upload" className="text-black bg-[#1bd4f1]">
+          <Link to={{
+            pathname: "/upload/new-upload",
+          }}
+            state={{ confirm: false }}
+            className="text-black bg-[#1bd4f1]">
             Get Started
           </Link>
         </li>
@@ -66,7 +70,10 @@ function Navbar() {
         <ul className="p-4 pt-12 text-center uppercase">
           <li className="p-4 text-black bg-[#1bd4f1] rounded">
             <Link
-              to="/upload"
+              to={{
+                pathname: "/upload/new-upload",
+              }}
+              state={{ confirm: false }}
               className="text-black bg-[#1bd4f1]"
               onClick={handleNav}
             >

@@ -6,6 +6,7 @@ services:
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
+    hostname: rabbitmq
     ports:
     - "15672:15672"
     - "5672:5672"
@@ -13,14 +14,26 @@ services:
   
   # sql server container service
   database:
-    image:  mcr.microsoft.com/mssql/server:2019-latest 
-    container_name: sql-server
+    image: postgres:15-alpine
+    container_name: postgres-server
+    hostname: postgres
     ports:
-    - "1433:1433"
+    - "5432:5432"
     environment:
-    - "ACCEPT_EULA=Y"
-    - "MSSQL_SA_PASSWORD=f@nto237(!)"    
+    - "POSTGRES_USER=fantoSama"
+    - "POSTGRES_PASSWORD=f@nto237(!)" 
+    - "POSTGRES_DB=OrderDb"   
     volumes: 
-    - "../database:/etc/mssql/server:ro"
+    - "../database:/var/lib/postgresql/data"
+    restart: always
+
+# database management tool
+  adminer:
+    image: adminer
+    hostname: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - 8080:8080
 
 
