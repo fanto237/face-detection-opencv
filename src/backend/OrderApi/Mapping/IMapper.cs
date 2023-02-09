@@ -4,5 +4,6 @@ namespace OrderApi.Mapping;
 
 public interface IMapper
 {
-    Order Map<T>(T model) where T : OrderCreateDto, new();
+    Order Map(OrderCreateDto source);
+    OrderGetDto Map(Order source);
 }
