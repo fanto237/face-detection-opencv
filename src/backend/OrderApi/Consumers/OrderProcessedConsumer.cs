@@ -39,7 +39,7 @@ public class OrderProcessedConsumer : IConsumer<IOrderProcessedEvent>
         await _publishEndpoint.Publish<IOrderSendEvent>(new
         {
             order.OrderId,
-            order.Username,
+            Username = order.Username,
             order.Email,
             order.ImageName,
             Faces = msg.FaceData,

@@ -1,12 +1,10 @@
 ﻿using MailKit.Net.Smtp;
 using MailKit.Security;
-using MailService.Consumers;
 using MassTransit;
-using Microsoft.Extensions.Logging;
 using MimeKit;
 using SharedLib.Contracts;
 
-namespace MailService;
+namespace MailService.Consumers;
 
 internal class OrderSendConsumer : IConsumer<IOrderSendEvent>
 {
@@ -22,12 +20,12 @@ internal class OrderSendConsumer : IConsumer<IOrderSendEvent>
     public async Task Consume(ConsumeContext<IOrderSendEvent> context)
     {
         var msg = context.Message;
-        var message = new Message(msg.Email, $"Your Order Number {msg.OrderId}", msg.Faces, msg.UserName);
+        var message = new Message(msg.Email, $"Your Order {msg.OrderId}", msg.Faces, msg.UserName);
         await SendEmail(message);
         await _publishEndpoint.Publish<IOrderSentEvent>(new
         {
             msg.OrderId,
-            DateTime.Now,
+            DateTime.Now
         });
     }
 
@@ -40,16 +38,16 @@ internal class OrderSendConsumer : IConsumer<IOrderSendEvent>
         var body = new BodyBuilder();
         body.TextBody = message.Attachments.Any()
             ? $"Hey {message.UserName}, \n\n" +
-              $"Thanks for requesting for a Face Detection, your Order has been successfully processed by us. \n" +
-              $"In Attachment you can find the faces images contained in the image you submitted. \n\n" +
-              $"King regards \n" +
-              $"Your Meta Vision Team"
+              "Thanks for requesting for a Face Detection, your Order has been successfully processed by us. \n" +
+              "In Attachment you can find the faces images contained in the image you submitted. \n\n" +
+              "King regards \n" +
+              "Your Meta Vision Team"
             : $"Hey {message.UserName}, \n\n" +
-              $"Thanks for requesting for a Face Detection, your Order has been successfully processed by us. \n" +
-              $"Sadly they were no faces images  contained in the image you submitted. \n\n" +
-              $"King regards \n" +
-              $"Your Meta Vision Team";
-        
+              "Thanks for requesting for a Face Detection, your Order has been successfully processed by us. \n" +
+              "Sadly they were no faces images  contained in the image you submitted. \n\n" +
+              "King regards \n" +
+              "Your Meta Vision Team";
+
         if (message.Attachments.Any())
         {
             var i = 0;
