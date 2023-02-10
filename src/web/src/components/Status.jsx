@@ -12,7 +12,7 @@ function Status() {
     button: "mt-2 sm:mt-0 sm:ml-2 py-[2px] px-2 rounded bg-[#1bd4f1] flex  items-center",
 
   }
-  const [resp, setResp] = useState(null);
+  const [result, setResult] = useState(null);
 
 
 
@@ -37,51 +37,46 @@ function Status() {
     console.log("the image is: " + img);
   }
 
-  useEffect(() => {
-    console.log("I got fired");
-    // setHasFetched(true);
-  }, [resp])
+  // useEffect(() => {
+  //   console.log("I got fired");
+  //   // setHasFetched(true);
+  // }, [resp])
 
-
-  const handleOnclick = () => {
-    // e.preventDefault();
-    console.log("i am in the handler");
-    instance.get("/api/orders/" + input)
-      .then((response) => {
-        console.log(response.data);
-        // setResponse(response.data);
-        // console.log(response);
-        setResp(response.data);
-        // console.log(resp);
-
-      })
-      .then(() => {
-        console.log(resp);
-      })
-      .catch(err => {
-        console.log("the error ist :" + err);
-      })
-    // try {
-    //   const resp = aw instance.get("/api/orders/" + input);
-    //   console.log(resp);
-    //   // setResponse(resp.data);
-    //   if (resp.data === null) {
-    //     console.log("the response is null")
-    //   } else {
-    //     console.log("the hasbeenFetched before :" + hasFetched)
-    //     setHasFetched(true);
-    //     console.log("the hasbeenFetched after :" + hasFetched)
-    //     deserializeToImage(response.imageData);
-    //   }
-    // } catch (err) {
-    //   console.log("the error is : " + err);
-    // }
+  const valid = (id) => {
+    const regex = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$";
+    const result = id.match(regex);
+    return result === null ? false : true;
   }
 
-  // useEffect(() => {
-  //   console.log("i am from the use effect");
-  // }, [])
-  // console.log(input);
+
+  const handleOnclick = async () => {
+    // e.preventDefault();
+    console.log("i am in the handler");
+    if (valid(input)) {
+      console.log("the order id is correct")
+      try {
+        const resp = await instance.get("/api/orders/" + input);
+        console.log(resp);
+        setResult(resp.data);
+        if (resp.data === null) {
+          console.alert("There is no order corresponding to this number, try again with a correct number")
+        } else {
+          console.log("the hasbeenFetched before :" + hasFetched)
+          setHasFetched(true);
+          console.log("the hasbeenFetched after :" + hasFetched)
+          // deserializeToImage(response.imageData);
+        }
+      } catch (err) {
+        console.log("the error is : " + err);
+      }
+
+    } else {
+      console.log("the order entered was not a valid order id, please try with a correct number");
+      setInput("");
+      setHasFetched(false);
+    }
+  }
+
 
   return (
     <> {
@@ -95,7 +90,9 @@ function Status() {
             <input type="text" value={input} placeholder="Enter your order number" className={style.input} onChange={e => setInput(e.target.value)} />
             <button className={style.button} onClick={handleOnclick}><BiSearch size={28} className="bg-[#1bd4f1]" /><span className="pl-1 uppercase text-2sm bg-inherit">Track</span></button>
           </div>
-          <Order response={resp} image={image} />
+          <div className="w-full">
+            <Order result={result} />
+          </div>
         </div>
         :
         <div className={style.div1}>
