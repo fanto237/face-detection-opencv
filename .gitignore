@@ -352,3 +352,6 @@ MigrationBackup/
 .vscode
 src/backend/FaceProcessApi/face_number*
 src/backend/FaceProcessApi/Images/
+.env
+src/backend/NotificationService/appsettings.Production.json
+src/backend/NotificationService/appsettings.json

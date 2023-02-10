@@ -2,7 +2,7 @@
 
 public enum OrderStatus
 {
-    Registered,
-    Processed,
-    Sent
+    Registered = 0,
+    Processed = 1,
+    Sent = 2
 }

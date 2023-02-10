@@ -20,9 +20,9 @@ services:
     ports:
     - "5432:5432"
     environment:
-    - "POSTGRES_USER=fantoSama"
-    - "POSTGRES_PASSWORD=f@nto237(!)" 
-    - "POSTGRES_DB=OrderDb"   
+    - "POSTGRES_USER=${POSTGRES_USER}"
+    - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}" 
+    - "POSTGRES_DB=${POSTGRES_DB}"
     volumes: 
     - "../database:/var/lib/postgresql/data"
     restart: always

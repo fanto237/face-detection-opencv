@@ -22,26 +22,20 @@ public class OrdersController : Controller
         _publishEndpoint = publishEndpoint;
     }
 
-    [HttpGet]
-    public async Task<IEnumerable<Order>> Get()
-    {
-        Console.WriteLine("get all is been called");
-        return await _orderRepository.Get();
-    }
-    
     [HttpGet("{id:guid}", Name = "GetOrder")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<Order>> GetById(Guid id)
+    public async Task<ActionResult<OrderGetDto>> GetById(Guid id)
     {
         if (id == Guid.Empty)
             // todo add logging
             return BadRequest();
 
         var order = await _orderRepository.GetById(id);
-        return order;
+        var result = _mapper.Map(order);
+        return result;
     }
 
     [HttpPost]
@@ -52,13 +46,11 @@ public class OrdersController : Controller
         var order = _mapper.Map(model);
         order.ImageData = await ConvertToByte(order.ImageFile);
         order.ImageName = GenerateImageName(order.ImageFile);
-        order.Status = OrderStatus.Registered;
         await _orderRepository.Create(order);
         await _publishEndpoint.Publish<IOrderRegisteredEvent>(new 
         {
             order.OrderId,
             order.ImageData,
-            // order.Faces,
         } );
         return CreatedAtRoute("GetOrder", new { id = order.OrderId }, order);
     }

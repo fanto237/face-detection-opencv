@@ -326,7 +326,7 @@ function Usage() {
           contact us:
         </p>
         <ul>
-          <li>By email: contact@metavison.com</li>
+          <li>By email: metavision@fantodev.com</li>
         </ul>
       </div>
     </div>

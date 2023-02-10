@@ -9,7 +9,7 @@ using SharedLib;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("orderDbConnectionString");
-var frontEndUrl = builder.Configuration.GetValue<string>("frontend_url");
+var frontEndUrl = builder.Configuration.GetSection("frontend_url").Value;
 
 // Add services to the container.
 
@@ -31,6 +31,7 @@ builder.Services.AddCors(op => op.AddPolicy("cors-policy", policyBuilder =>
 builder.Services.AddMassTransit(config =>
 {
     config.AddConsumer<OrderProcessedConsumer>();
+    config.AddConsumer<OrderSentConsumer>();
     config.UsingRabbitMq((context, configTrans) =>
     {
         configTrans.Host(RabbitMqConstants.RmqUri, "/", configHost =>
@@ -42,6 +43,11 @@ builder.Services.AddMassTransit(config =>
         configTrans.ReceiveEndpoint(RabbitMqConstants.OrderProcessedEventQueueName, configEndpoint =>
         {
             configEndpoint.ConfigureConsumer<OrderProcessedConsumer>(context);
+        });
+        
+        configTrans.ReceiveEndpoint(RabbitMqConstants.OrderSentEventQueueName, configEp =>
+        {
+            configEp.ConfigureConsumer<OrderSentConsumer>(context);
         });
     });
 });

@@ -89,10 +89,6 @@ function Upload() {
     form_data.append("imageName", order.imageName);
     form_data.append("imageFile", order.imageFile);
 
-    // for (var item of form_data) {
-    //   console.log(item[0] + " : " + item[1]);
-    // }
-
     console.log("order has been sent")
     try {
       const resp = await instance.post("/api/orders", form_data);
