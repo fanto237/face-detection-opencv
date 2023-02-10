@@ -7,8 +7,8 @@ function Order(props) {
         dfjdf: "",
         dfjdf: "",
     }
-    const resp = props.response;
-    const image = props.image;
+    const resp = props.result;
+    // const image = props.image;
     // console.log(resp);
 
     const getStatus = () => {
@@ -21,7 +21,7 @@ function Order(props) {
     }
     return (
         <div>
-            <table className=''>
+            <table className='m-auto '>
                 <tr>
                     <th className='p-2 border text-[#1bd4f1]'>Image</th>
                     <th className='p-2 border text-[#1bd4f1]'>Order Id</th>
@@ -30,14 +30,13 @@ function Order(props) {
                     <th className='p-2 border text-[#1bd4f1]'>Status</th>
                 </tr>
                 <tr>
-                    <td className='p-2 border'>Image</td>
+                    <td className='p-2 border'><img src={"data:image/jpeg;base64," + resp.imageData} alt="the is the best" className='w-32 h-40' /></td>
                     <td className='p-2 border'>{resp.orderId}</td>
                     <td className='p-2 border'>{resp.userName}</td>
                     <td className='p-2 border'>{resp.email}</td>
                     <td className='p-2 border'>{getStatus()}</td>
                 </tr>
             </table>
-            <img src={image} alt="the is the best" />
         </div>
     )
 }
