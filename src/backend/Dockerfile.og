@@ -1,0 +1,26 @@
+﻿#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+FROM mcr.microsoft.com/dotnet/aspnet:7.0-jammy AS base
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends libexpat1
+#COPY --from=shimat/ubuntu20-dotnet6-opencv4.5.3:20210821 /usr/lib /usr/lib
+#COPY --from=shimat/ubuntu20-dotnet6-opencv4.5.3:20210821 /lib /lib
+
+FROM mcr.microsoft.com/dotnet/sdk:7.0-jammy AS build
+WORKDIR /src
+COPY ["FaceProcessApi/FaceProcessApi.csproj", "src/FaceProcessApi/"]
+COPY ["SharedLib/SharedLib.csproj", "SharedLib/"]
+RUN dotnet restore "src/FaceProcessApi/FaceProcessApi.csproj"
+COPY . .
+WORKDIR "/src/FaceProcessApi"
+RUN dotnet build "FaceProcessApi.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "FaceProcessApi.csproj" -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+RUN apt install nano 
+ENTRYPOINT ["dotnet", "FaceProcessApi.dll"]
