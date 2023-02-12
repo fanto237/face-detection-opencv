@@ -25,7 +25,7 @@ builder.Services.AddSingleton<IMapper, Mapper>();
 // registering and configuring asp.net.cors services to allow api call from others url or port
 builder.Services.AddCors(op => op.AddPolicy("cors-policy", policyBuilder =>
 {
-    policyBuilder.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod();
+    policyBuilder.WithOrigins("https://metavision.fantodev.com/").AllowAnyHeader().AllowAnyMethod();
 }));
 
 builder.Services.AddMassTransit(config =>
