@@ -1,7 +1,9 @@
-﻿FROM mcr.microsoft.com/dotnet/runtime:6.0 AS base
+﻿ENV SDK_VERSION=6.0-focal
+
+FROM mcr.microsoft.com/dotnet/runtime:${SDK_VERSION} AS base
 WORKDIR /app
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:${SDK_VERSION} AS build
 WORKDIR /src
 COPY ["ComputerVisionService/ComputerVisionService.csproj", "ComputerVisionService/"]
 COPY ["SharedLib/SharedLib.csproj", "SharedLib/"]
