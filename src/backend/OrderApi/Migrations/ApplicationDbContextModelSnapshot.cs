@@ -37,8 +37,6 @@ namespace OrderApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderId");
-
                     b.ToTable("Faces");
                 });
 
@@ -70,20 +68,6 @@ namespace OrderApi.Migrations
                     b.HasKey("OrderId");
 
                     b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("OrderApi.Models.Face", b =>
-                {
-                    b.HasOne("OrderApi.Models.Order", null)
-                        .WithMany("Faces")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("OrderApi.Models.Order", b =>
-                {
-                    b.Navigation("Faces");
                 });
 #pragma warning restore 612, 618
         }
