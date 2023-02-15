@@ -29,13 +29,14 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
+      <None Remove="libOpenCvSharpExtern.so" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="libOpenCvSharpExtern.so" />
+      <None Remove="Cascades\haarcascade_frontalface_alt.xml" />
+      <Resource Include="Cascades\haarcascade_frontalface_alt.xml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
     </ItemGroup>
 
 </Project>
