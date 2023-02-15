@@ -1,0 +1,65 @@
+version: "3.9"
+
+services:
+
+  # order api docker container
+  orderapi:
+    image: fanto/order-api:1.0
+    container_name: orderapi
+    hostname: orderapi
+    ports:
+    - "5000:80"
+    depends_on:
+    - rabbitmq
+    - database
+
+  # face detection service docker container
+  face-detection:
+    image: fanto/opencv-faces-detection
+    container_name: face-detection
+    hostname: face-detection
+    depends_on:
+      - rabbitmq
+      - database
+
+  # notification service docker container
+  notification-service:
+    image: fanto/mailkit-notification
+    container_name: notification-service
+    hostname: notification-service
+    ports:
+      - "587:587"
+    depends_on:
+      - rabbitmq
+      - database
+
+  #rabbitmq container service
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    hostname: rabbitmq
+    ports:
+    - "15672:15672"
+    - "5672:5672"
+
+  
+  # sql server container service
+  database:
+    image: postgres:15-alpine
+    container_name: postgres-server
+    hostname: postgres
+    ports:
+    - "5432:5432"
+    environment:
+      # POSTGRES_USER: ${POSTGRES_USER}
+      # POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      # POSTGRES_DB: ${POSTGRES_DB}
+    - "POSTGRES_USER=${POSTGRES_USER}"
+    - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}" 
+    - "POSTGRES_DB=${POSTGRES_DB}"
+    volumes:
+    - "./database:/var/lib/postgresql/data"
+    restart: always
+
+
+
