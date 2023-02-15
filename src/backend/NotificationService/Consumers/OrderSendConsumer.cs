@@ -8,10 +8,10 @@ namespace MailService.Consumers;
 
 internal class OrderSendConsumer : IConsumer<IOrderSendEvent>
 {
-    private readonly EmaiConfig _emailConfig;
+    private readonly EmailConfig _emailConfig;
     private readonly IPublishEndpoint _publishEndpoint;
 
-    public OrderSendConsumer(IPublishEndpoint publishEndpoint, EmaiConfig emailConfig)
+    public OrderSendConsumer(IPublishEndpoint publishEndpoint, EmailConfig emailConfig)
     {
         _publishEndpoint = publishEndpoint;
         _emailConfig = emailConfig;
