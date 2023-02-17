@@ -9,7 +9,6 @@ using SharedLib;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("orderDbConnectionString");
-var frontEndUrl = builder.Configuration.GetSection("frontend_url").Value;
 
 // Add services to the container.
 
