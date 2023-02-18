@@ -1,6 +1,6 @@
 ﻿namespace MailService.Consumers;
 
-public class EmaiConfig
+public class EmailConfig
 {
     public string Name { get; set; }
     public string From { get; set; }

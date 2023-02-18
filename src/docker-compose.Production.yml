@@ -4,27 +4,18 @@ services:
 
   # order api docker container
   orderapi:
-    build:
-      context: ./src/backend/
-      dockerfile: Dockerfile-OrderApi
+    image: fanto/order-api:1.0
     container_name: orderapi
     hostname: orderapi
     ports:
-    - "5000:5000"
-    - "5001:5001"
-    environment:
-      ASPNETCORE_HTTP_PORT: https://+:5001
-      # ASPNETCORE_HTTPS_PORT: 5001
-      ASPNETCORE_URLS: http://+:5000
+    - "5000:80"
     depends_on:
     - rabbitmq
     - database
 
   # face detection service docker container
   face-detection:
-    build: 
-      context: ./src/backend/
-      dockerfile: Dockerfile-Compute
+    image: fanto/opencv-faces-detection
     container_name: face-detection
     hostname: face-detection
     depends_on:
@@ -33,9 +24,7 @@ services:
 
   # notification service docker container
   notification-service:
-    build:
-      context: ./src/backend/
-      dockerfile: Dockerfile-Notif
+    image: fanto/mailkit-notification
     container_name: notification-service
     hostname: notification-service
     ports:
@@ -62,21 +51,15 @@ services:
     ports:
     - "5432:5432"
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
-    volumes: 
-    - "./src/backend/database:/var/lib/postgresql/data"
+      # POSTGRES_USER: ${POSTGRES_USER}
+      # POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      # POSTGRES_DB: ${POSTGRES_DB}
+    - "POSTGRES_USER=${POSTGRES_USER}"
+    - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}" 
+    - "POSTGRES_DB=${POSTGRES_DB}"
+    volumes:
+    - "./database:/var/lib/postgresql/data"
     restart: always
-
-# database management tool
-  adminer:
-    image: adminer
-    hostname: adminer
-    container_name: adminer
-    restart: always
-    ports:
-      - "8080:8080"
 
 
 

@@ -9,7 +9,6 @@ using SharedLib;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("orderDbConnectionString");
-var frontEndUrl = builder.Configuration.GetSection("frontend_url").Value;
 
 // Add services to the container.
 
@@ -25,7 +24,7 @@ builder.Services.AddSingleton<IMapper, Mapper>();
 // registering and configuring asp.net.cors services to allow api call from others url or port
 builder.Services.AddCors(op => op.AddPolicy("cors-policy", policyBuilder =>
 {
-    policyBuilder.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod();
+    policyBuilder.WithOrigins("https://metavision.fantodev.com/").AllowAnyHeader().AllowAnyMethod();
 }));
 
 builder.Services.AddMassTransit(config =>

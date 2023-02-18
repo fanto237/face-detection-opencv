@@ -34,7 +34,7 @@ public class Program
             {
                 var emailConfig = hostContext.Configuration
                     .GetSection("EmailConfiguration")
-                    .Get<EmaiConfig>();
+                    .Get<EmailConfig>();
                 services.AddSingleton(emailConfig);
                 services.AddMassTransit(config =>
                 {

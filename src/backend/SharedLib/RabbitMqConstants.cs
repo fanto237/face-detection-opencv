@@ -2,7 +2,7 @@
 
 public static class RabbitMqConstants
 {
-    public const string RmqUri = "localhost";
+    public const string RmqUri = "rabbitmq";
     public const string RmqUsername = "guest";
     public const string RmqPassword = "guest";
     public const string OrderRegisteredEventQueueName = "order.registered.queue";

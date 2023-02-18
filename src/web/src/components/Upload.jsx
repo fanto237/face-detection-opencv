@@ -122,7 +122,7 @@ function Upload() {
       {isSubmitted ?
         <Confirmation params={params} />
         :
-        <div className="flex flex-col items-center justify-center md:h-[100vh] md:pt-0 pt-10 h-full mx-auto">
+        <div className="flex flex-col items-center justify-center h-full pt-10 mx-auto md:h-max md:pt-0">
           <div>
             <img className="w-[350px] h-[250px] sm:h-[450px] sm:w-[550px] md:h-[550px] md:w-[700px]" src={order.imageName} alt="selected" />
           </div>
