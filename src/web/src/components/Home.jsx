@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 function Home() {
   return (
     <div className="flex items-center justify-center h-[75vh]">
-      <div className="max-w-[800px] m-auto  text-center flex flex-col">
+      <div className="max-w-[800px] m-auto text-center flex flex-col">
         <p className="uppercase text-[#1bd4f1] font-bold p-2">
-          Detect any face from any image
+          Computer Vision for images and videos processing
         </p>
         <p className="text-4xl font-bold md:text-7xl sm:text-6xl md:py-6">
-          Face Recognition for Everyone
+          Faces Recognition made easy
         </p>
         <div className="flex items-center justify-center p-2">
           <p className="text-xl font-bold md:text-5xl sm:text-4xl">
@@ -18,7 +18,7 @@ function Home() {
           </p>
           <Typed
             className="pl-2 text-xl font-bold text-[#1bd4f1] underline md:text-5xl sm:text-4xl"
-            strings={["EASY", "FLEXIBEL", "RELIABLE"]}
+            strings={["EASY", "FLEXIBLE", "RELIABLE"]}
             typeSpeed={100}
             backSpeed={110}
             loop
