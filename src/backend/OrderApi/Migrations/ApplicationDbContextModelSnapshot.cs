@@ -37,7 +37,7 @@ namespace OrderApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Faces");
+                    b.ToTable("Faces", (string)null);
                 });
 
             modelBuilder.Entity("OrderApi.Models.Order", b =>
@@ -67,7 +67,7 @@ namespace OrderApi.Migrations
 
                     b.HasKey("OrderId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 #pragma warning restore 612, 618
         }
