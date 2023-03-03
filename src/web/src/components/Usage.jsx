@@ -2,7 +2,7 @@ import React from "react";
 
 function Usage() {
   return (
-    <div className="mx-[35px] mb-8 md:mx-48 sm:mx-[50px]">
+    <div className="mx-[35px] mb-8 lg:mx-44 md:mx-30 sm:mx-[50px]">
       <div className="flex flex-col items-center justify-center my-10">
         <h1 className="text-[#1bd4f1] text-3xl md:text-5xl ">
           Terms and Conditions

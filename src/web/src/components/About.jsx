@@ -1,13 +1,49 @@
 import React from "react";
+import about1 from "../assets/about.png"
+import { Link } from "react-router-dom";
 
 function About() {
-  return <>
-    <div>
-      <p>Welcome to the world of advanced image analysis! Our website offers cutting-edge face detection technology that can analyze and identify faces in images with remarkable accuracy. Our state-of-the-art algorithms are designed to provide fast and reliable results, making it easier for you to extract information from images.</p>
-      <p>We believe that the world of image analysis is constantly evolving, and that's why we're always working to add new features and capabilities to our platform. In the near future, you can expect to see a wide range of additional features, including the ability to detect other objects in images, improve image quality, upscale videos, and even perform face comparison tests. These exciting new capabilities will allow you to unlock even more valuable insights from your images and take your analysis to the next level.</p>
-      <p>So why wait? Whether you're a professional photographer, a researcher, or simply someone who loves to explore the world through images, our platform has something for you. Sign up today and start discovering the amazing insights that await you!</p>
-    </div>
-  </>;
+  return (
+    <>
+      <h1 className="text-[#1bd4f1] text-center text-3xl md:text-5xl pb-16">About Us</h1>
+      <div className="flex flex-col items-center justify-center w-full">
+        <div className="flex flex-col justify-center pb-16 md:px-16 md:w-full md:flex-row xl:px-72">
+          <div>
+            <h2 className="pb-5 text-xl md:text-4xl text-[#1bd4f1] text-left px-[10px]">Welcome to Meta Vision</h2>
+            <p className="pb-4 px-[10px] md:text-xl">Our website offers cutting-edge face detection technology that can analyze and identify faces in images with remarkable accuracy. Our state-of-the-art algorithms are designed to provide fast and reliable results, making it easier for you to extract information from images.</p>
+          </div>
+          <img src={about1} alt="ai techno" className="h-80 w-[500px] mx-auto md:w-[350px] lg:w-[500px] md:ml-1" />
+        </div>
+        <div className="w-full h-full py-16 bg-slate-700 md:px-16 xl:px-72">
+          <h2 className="pb-5 text-xl md:text-4xl text-[#1bd4f1] text-left bg-inherit px-[10px]">Incoming Features</h2>
+          <p className="bg-inherit px-[10px] md:text-xl">We believe that the world of images and videos analysis is constantly evolving, and that's why we're always working to add new features and capabilities to our platform.</p>
+          <p className="bg-inherit px-[10px] md:text-xl">In the near future, you can expect to see a wide range of additional features, including :</p>
+          <li className="bg-inherit px-[10px] md:text-xl">The ability to detect other objects in images </li>
+          <li className="bg-inherit px-[10px] md:text-xl">Improve image quality, upscale videos </li>
+          <li className="bg-inherit px-[10px] md:text-xl">Perform face comparison tests</li>
+          <li className="bg-inherit px-[10px] md:text-xl">And even more ! </li>
+          <p className="bg-inherit px-[10px] md:text-xl">These exciting new capabilities will allow you to unlock even more valuable insights from your images and take your analysis to the next level.</p>
+        </div>
+        <div className="flex flex-col w-full pt-16 pb-20 md:px-16 xl:px-72">
+          <h2 className="pb-5 text-xl md:text-4xl text-[#1bd4f1] text-left px-[10px]">Try Yourself</h2>
+          <p className="px-[10px] pb-5 md:text-xl">So why wait? Whether you're a professional photographer, a researcher, or simply someone who loves to explore the world through images, our platform has something for you. Sign up today and start discovering the amazing insights that await you!</p>
+          <button
+            about="#"
+            className="bg-[#1bd4f1] text-black w-40 mx-auto mt-6 rounded p-2 md:text-xl"
+          >
+            {" "}
+            <Link to={{
+              pathname: "/upload/new-upload",
+            }}
+              state={{ confirm: false }}
+              className="text-black bg-[#1bd4f1]">
+              Try it !
+            </Link>
+          </button>
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default About;
