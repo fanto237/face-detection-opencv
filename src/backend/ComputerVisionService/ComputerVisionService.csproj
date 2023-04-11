@@ -9,34 +9,34 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\SharedLib\SharedLib.csproj" />
+        <ProjectReference Include="..\SharedLib\SharedLib.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="MassTransit" Version="8.0.12" />
-      <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.3.1" />
-      <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.12" />
-      <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
-      <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
-      <PackageReference Include="OpenCvSharp4" Version="4.7.0.20230115" />
-      <PackageReference Include="OpenCvSharp4_.runtime.ubuntu.20.04-x64" Version="4.7.0.20230115" />
-<!--      <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.7.0.20230115" />-->
-<!--      <PackageReference Include="System.Drawing.Common" Version="7.0.0" />-->
+        <PackageReference Include="MassTransit" Version="8.0.13" />
+        <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.3.1" />
+        <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.13" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
+        <PackageReference Include="OpenCvSharp4" Version="4.7.0.20230115" />
+        <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.7.0.20230115" />
+        <!--      <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.7.0.20230115" />-->
+        <!--      <PackageReference Include="System.Drawing.Common" Version="7.0.0" />-->
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Images" />
+        <Folder Include="Images" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="libOpenCvSharpExtern.so" />
+        <None Remove="libOpenCvSharpExtern.so" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Cascades\haarcascade_frontalface_alt.xml" />
-      <Resource Include="Cascades\haarcascade_frontalface_alt.xml">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Resource>
+        <None Remove="Cascades\haarcascade_frontalface_alt.xml" />
+        <Resource Include="Cascades\haarcascade_frontalface_alt.xml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
     </ItemGroup>
 
 </Project>

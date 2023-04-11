@@ -11,8 +11,8 @@ namespace OrderApi.Controllers;
 [Route("/api/[controller]")]
 public class OrdersController : Controller
 {
-    private readonly IOrderRepository _orderRepository;
     private readonly IMapper _mapper;
+    private readonly IOrderRepository _orderRepository;
     private readonly IPublishEndpoint _publishEndpoint;
 
     public OrdersController(IOrderRepository orderRepository, IMapper mapper, IPublishEndpoint publishEndpoint)
@@ -47,11 +47,11 @@ public class OrdersController : Controller
         order.ImageData = await ConvertToByte(order.ImageFile);
         order.ImageName = GenerateImageName(order.ImageFile);
         await _orderRepository.Create(order);
-        await _publishEndpoint.Publish<IOrderRegisteredEvent>(new 
+        await _publishEndpoint.Publish<IOrderRegisteredEvent>(new
         {
             order.OrderId,
-            order.ImageData,
-        } );
+            order.ImageData
+        });
         return CreatedAtRoute("GetOrder", new { id = order.OrderId }, order);
     }
 
@@ -80,6 +80,5 @@ public class OrdersController : Controller
     [NonAction]
     private static async Task PublishCommand(Order order)
     {
-        
     }
 }

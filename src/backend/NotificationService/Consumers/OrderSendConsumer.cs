@@ -29,7 +29,7 @@ internal class OrderSendConsumer : IConsumer<IOrderSendEvent>
         });
     }
 
-    private async Task<MimeMessage> CreateEmail(Message message)
+    private Task<MimeMessage> CreateEmail(Message message)
     {
         var emailMessage = new MimeMessage();
         emailMessage.From.Add(new MailboxAddress(_emailConfig.Name, _emailConfig.From));
@@ -55,7 +55,7 @@ internal class OrderSendConsumer : IConsumer<IOrderSendEvent>
         }
 
         emailMessage.Body = body.ToMessageBody();
-        return emailMessage;
+        return Task.FromResult(emailMessage);
     }
 
     private async Task SendEmail(Message message)
