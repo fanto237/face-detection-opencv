@@ -74,12 +74,5 @@ public class OrdersController : Controller
         imgName = imgName + DateTime.Now.ToString("yy-MM-dd") + Path.GetExtension(imageFile.FileName);
         return imgName;
     }
-
-
-    // todo publish
-    [NonAction]
-    private static async Task PublishCommand(Order order)
-    {
-        
-    }
+    
 }
