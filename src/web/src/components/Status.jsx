@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import instance from "../api/endPoint";
 import Order from "./Order";
@@ -18,39 +18,19 @@ function Status() {
 
   const [input, setInput] = useState("");
   const [hasFetched, setHasFetched] = useState(false);
-  const [image, SetImage] = useState(null);
 
-  const deserializeToImage = (byteArray) => {
-    // Create a blob from the byte array
-    const blob = new Blob([byteArray], { type: 'image/jpeg' });
-
-    // Create an object URL from the blob
-    const objectURL = URL.createObjectURL(blob);
-
-    // Create an image element
-    const img = new Image();
-
-    // Set the src of the image to the object URL
-    img.src = objectURL;
-
-    // Return the image element
-    console.log("the image is: " + img);
-  }
-
-  // useEffect(() => {
-  //   console.log("I got fired");
-  //   // setHasFetched(true);
-  // }, [resp])
 
   const valid = (id) => {
+    if (id === "")
+      return false;
     const regex = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$";
     const result = id.match(regex);
     return result === null ? false : true;
   }
 
 
-  const handleOnclick = async () => {
-    // e.preventDefault();
+  const handleOnclick = async (e) => {
+    e.preventDefault();
     console.log("i am in the handler");
     if (valid(input)) {
       console.log("the order id is correct")
@@ -64,14 +44,13 @@ function Status() {
           console.log("the hasbeenFetched before :" + hasFetched)
           setHasFetched(true);
           console.log("the hasbeenFetched after :" + hasFetched)
-          // deserializeToImage(response.imageData);
         }
       } catch (err) {
         console.log("the error is : " + err);
       }
 
     } else {
-      console.log("the order entered was not a valid order id, please try with a correct number");
+      alert("the order entered was not a valid order id, please try with a correct number");
       setInput("");
       setHasFetched(false);
     }
