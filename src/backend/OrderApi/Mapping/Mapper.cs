@@ -1,5 +1,4 @@
-﻿using System.Net.NetworkInformation;
-using OrderApi.Models;
+﻿using OrderApi.Models;
 
 namespace OrderApi.Mapping;
 
@@ -9,7 +8,7 @@ public class Mapper : IMapper
     {
         return Map(source, new Order());
     }
-    
+
     public OrderGetDto Map(Order source)
     {
         return Map(source, new OrderGetDto());
@@ -35,6 +34,4 @@ public class Mapper : IMapper
         destination.Status = source.Status;
         return destination;
     }
-
-   
 }

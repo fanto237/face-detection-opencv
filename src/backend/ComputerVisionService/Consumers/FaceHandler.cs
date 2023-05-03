@@ -2,13 +2,14 @@
 
 namespace ComputerVisionService.Consumers;
 
-public class  FaceHandler : IFaceHandler
+public class FaceHandler : IFaceHandler
 {
     private readonly CascadeClassifier _cascadeClassifierFaces;
 
     public FaceHandler()
     {
-        const string path = @"./Cascades/haarcascade_frontalface_alt.xml";
+        // const string path = @"./Cascades/haarcascade_frontalface_alt.xml";
+        const string path = @"C:\Users\Fanto\git\face-detection-opencv\src\backend\ComputerVisionService\Cascades\haarcascade_frontalface_alt.xml";
         _cascadeClassifierFaces = new CascadeClassifier();
         _cascadeClassifierFaces.Load(path);
     }
@@ -16,7 +17,6 @@ public class  FaceHandler : IFaceHandler
     public async Task<List<byte[]>> ExtractFaces(byte[] imageData)
     {
         return await DetectAndSave(imageData);
-        
     }
 
     private Task<List<byte[]>> DetectAndSave(byte[] bytes)
@@ -28,7 +28,7 @@ public class  FaceHandler : IFaceHandler
 
         var facesRectangles = _cascadeClassifierFaces.DetectMultiScale(grayScale, minNeighbors: 6,
             flags: HaarDetectionTypes.DoRoughSearch,
-            minSize: new Size(60, 60));
+            minSize: new Size(10, 10));
         var facesBytes = new List<byte[]>();
 
         for (var i = 0; i < facesRectangles.Length; ++i)

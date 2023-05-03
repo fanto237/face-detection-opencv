@@ -1,9 +1,8 @@
-using MassTransit.MultiBus;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using OrderApi.Consumers;
 using OrderApi.Data;
 using OrderApi.Mapping;
-using MassTransit;
-using OrderApi.Consumers;
 using OrderApi.Repository;
 using SharedLib;
 
@@ -15,7 +14,7 @@ var connectionString = builder.Configuration.GetConnectionString("orderDbConnect
 builder.Services.AddControllers();
 builder.Services.AddDbContext<ApplicationDbContext>(
     // configuring the context to use the postgres provider
-    options => options.UseNpgsql(connectionString) 
+    options => options.UseNpgsql(connectionString)
 );
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IFaceRepository, FaceRepository>();
@@ -38,16 +37,12 @@ builder.Services.AddMassTransit(config =>
             configHost.Username(RabbitMqConstants.RmqUsername);
             configHost.Password(RabbitMqConstants.RmqPassword);
         });
-        
-        configTrans.ReceiveEndpoint(RabbitMqConstants.OrderProcessedEventQueueName, configEndpoint =>
-        {
-            configEndpoint.ConfigureConsumer<OrderProcessedConsumer>(context);
-        });
-        
-        configTrans.ReceiveEndpoint(RabbitMqConstants.OrderSentEventQueueName, configEp =>
-        {
-            configEp.ConfigureConsumer<OrderSentConsumer>(context);
-        });
+
+        configTrans.ReceiveEndpoint(RabbitMqConstants.OrderProcessedEventQueueName,
+            configEndpoint => { configEndpoint.ConfigureConsumer<OrderProcessedConsumer>(context); });
+
+        configTrans.ReceiveEndpoint(RabbitMqConstants.OrderSentEventQueueName,
+            configEp => { configEp.ConfigureConsumer<OrderSentConsumer>(context); });
     });
 });
 
@@ -60,15 +55,14 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
 // adding a middleware for using asp.net.cors
 app.UseCors("cors-policy");
+
+// app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

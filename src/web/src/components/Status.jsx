@@ -19,7 +19,6 @@ function Status() {
   const [input, setInput] = useState("");
   const [hasFetched, setHasFetched] = useState(false);
 
-
   const valid = (id) => {
     if (id === "")
       return false;

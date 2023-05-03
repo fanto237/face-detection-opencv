@@ -6,16 +6,18 @@ namespace ComputerVisionService.Consumers;
 
 public class OrderRegisteredConsumer : IConsumer<IOrderRegisteredEvent>
 {
+    private readonly IFaceHandler _faceHandler;
     private readonly ILogger<OrderRegisteredConsumer> _logger;
     private readonly IPublishEndpoint _publishEndpoint;
-    private readonly IFaceHandler _faceHandler;
 
-    public OrderRegisteredConsumer(ILogger<OrderRegisteredConsumer> logger, IPublishEndpoint publishEndpoint, IFaceHandler faceHandler)
+    public OrderRegisteredConsumer(ILogger<OrderRegisteredConsumer> logger, IPublishEndpoint publishEndpoint,
+        IFaceHandler faceHandler)
     {
         _logger = logger;
         _publishEndpoint = publishEndpoint;
         _faceHandler = faceHandler;
     }
+
     public async Task Consume(ConsumeContext<IOrderRegisteredEvent> context)
     {
         var msg = context.Message;
@@ -23,7 +25,7 @@ public class OrderRegisteredConsumer : IConsumer<IOrderRegisteredEvent>
         await _publishEndpoint.Publish<IOrderProcessedEvent>(new
         {
             msg.OrderId,
-            msg.FaceData,
+            msg.FaceData
         });
 
         _logger.LogInformation($"the new order contains: {msg.FaceData.Count} faces");

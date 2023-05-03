@@ -1,15 +1,8 @@
 import React from 'react'
 
 function Order(props) {
-    const style = {
-        table: "",
-        dfjdf: "",
-        dfjdf: "",
-        dfjdf: "",
-    }
+
     const resp = props.result;
-    // const image = props.image;
-    // console.log(resp);
 
     const getStatus = () => {
         if (resp.status === 0)

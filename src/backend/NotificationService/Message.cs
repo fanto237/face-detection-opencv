@@ -1,7 +1,4 @@
-﻿using System.Security.AccessControl;
-using MimeKit;
-
-namespace MailService.Consumers;
+﻿namespace MailService.Consumers;
 
 public class Message
 {
@@ -15,6 +12,6 @@ public class Message
 
     public string UserName { get; set; }
     public string ToEmail { get; set; }
-    public string  Subject { get; set; }
-   public List<byte[]> Attachments { get; set; }
+    public string Subject { get; set; }
+    public List<byte[]> Attachments { get; set; }
 }

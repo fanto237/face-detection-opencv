@@ -6,7 +6,6 @@ using Microsoft.Extensions.Hosting;
 using SharedLib;
 
 namespace MailService;
-// Note: actual namespace depends on the project name.
 
 public class Program
 {
@@ -52,7 +51,6 @@ public class Program
                             // set the prefetch count todo find out what is really is
                             // configEndpoint.PrefetchCount = 16;
                             // configEndpoint.UseMessageRetry( configRetry => configRetry.Interval(2, TimeSpan.FromSeconds(10)));
-                            ;
                         });
                     });
                 });
