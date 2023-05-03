@@ -4,70 +4,58 @@ services:
 
   # order api docker container
   orderapi:
-#    build:
-#      context: ./src/backend/
-#      dockerfile: Dockerfile-OrderApi
-    image: fanto/orderapi:1.3
-    container_name: orderapi
-    hostname: orderapi
+    image: fanto/orderapi:1.3.1
     ports:
-      - "5000:5000"
-      - "5001:5001"
-    environment:
-        ASPNETCORE_HTTP_PORT: https://+:5001
-        ASPNETCORE_URLS: http://+:5000
-    volumes:
-      - ./ssl:/https:ro
-#    environment:
-#      - ASPNETCORE_URLS=https://+:5001;http://+:5000
-#      - ASPNETCORE_Kestrel__Certificates__Default__Password=${CERTIFICATE_PASSWORD}
-#      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/certificate.pfx
+      - "8182:80"
     restart: on-failure
     depends_on:
     - rabbitmq
     - database
+    networks:
+      - backend
 
-  # face detection service docker container
-  face-detection:
-    build: 
-      context: ./src/backend/
-      dockerfile: Dockerfile-Compute
-    container_name: face-detection
-    hostname: face-detection
-    restart: on-failure
-    depends_on:
-      - rabbitmq
-      - database
+#   # face detection service docker container
+#   face-detection:
+#     build: 
+#       context: ./src/backend/
+#       dockerfile: Dockerfile-Compute
+#     container_name: face-detection
+#     hostname: face-detection
+#     restart: on-failure
+#     depends_on:
+#       - rabbitmq
+#       - database
 
-  # notification service docker container
-  notification-service:
-    build:
-      context: ./src/backend/
-      dockerfile: Dockerfile-Notif
-    container_name: notification-service
-    hostname: notification-service
-    ports:
-      - "587:587"
-    restart: on-failure
-    depends_on:
-      - rabbitmq
-      - database
+#   # notification service docker container
+#   notification-service:
+#     build:
+#       context: ./src/backend/
+#       dockerfile: Dockerfile-Notif
+#     container_name: notification-service
+#     hostname: notification-service
+#     ports:
+#       - "587:587"
+#     restart: on-failure
+#     depends_on:
+#       - rabbitmq
+#       - database
+
+#--------------------------
 
   #rabbitmq container service
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
-    hostname: rabbitmq
     ports:
     - "15672:15672"
     - "5672:5672"
+    networks:
+      - backend
 
   
   # sql server container service
-  database:
+  postgres:
     image: postgres:15-alpine
-    container_name: postgres-server
-    hostname: postgres
     ports:
     - "5432:5432"
     environment:
@@ -76,16 +64,22 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     volumes: 
     - "../database:/var/lib/postgresql/data"
-    restart: always
+    restart: unless-stopped
+    networks:
+      - backend
 
 # database management tool
   adminer:
     image: adminer
-    hostname: adminer
-    container_name: adminer
-    restart: always
+    restart: unless-stopped
     ports:
       - "8080:8080"
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
 
 
 
