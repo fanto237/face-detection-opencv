@@ -4,7 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SharedLib;
 
-namespace ComputerVisionService; // Note: actual namespace depends on the project name.
+namespace ComputerVisionService;
+// Note: actual namespace depends on the project name.
 
 public class Program
 {

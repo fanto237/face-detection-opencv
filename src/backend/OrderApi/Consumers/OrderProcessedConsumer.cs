@@ -8,9 +8,9 @@ namespace OrderApi.Consumers;
 public class OrderProcessedConsumer : IConsumer<IOrderProcessedEvent>
 {
     private readonly IFaceRepository _faceRepository;
-    private readonly IPublishEndpoint _publishEndpoint;
     private readonly ILogger<OrderProcessedConsumer> _logger;
     private readonly IOrderRepository _orderRepository;
+    private readonly IPublishEndpoint _publishEndpoint;
 
     public OrderProcessedConsumer(IOrderRepository orderRepository, ILogger<OrderProcessedConsumer> logger,
         IFaceRepository faceRepository, IPublishEndpoint publishEndpoint)
@@ -29,7 +29,7 @@ public class OrderProcessedConsumer : IConsumer<IOrderProcessedEvent>
         {
             var face = new Face { Id = Guid.NewGuid(), OrderId = msg.OrderId, FaceData = image };
             await _faceRepository.Create(face);
-            _logger.LogInformation($"Face numbber {counter++} has been added to the db");
+            _logger.LogInformation("Face number {count} has been added to the db", counter++);
         }
 
         var order = await _orderRepository.GetById(msg.OrderId);
@@ -39,14 +39,13 @@ public class OrderProcessedConsumer : IConsumer<IOrderProcessedEvent>
         await _publishEndpoint.Publish<IOrderSendEvent>(new
         {
             order.OrderId,
-            Username = order.Username,
+            order.Username,
             order.Email,
             order.ImageName,
-            Faces = msg.FaceData,
+            Faces = msg.FaceData
         });
         _logger.LogInformation("All faces have been added to the database");
         _logger.LogInformation("The OrderSentEvent has been dispatched !");
-        _logger.LogInformation($"the faceApi could extract {msg.FaceData.Count} out from the image ");
-        // return Task.CompletedTask;
+        _logger.LogInformation("the faceApi could extract {FaceDataCount} out from the image ", msg.FaceData.Count);
     }
 }
