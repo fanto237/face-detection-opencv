@@ -38,7 +38,7 @@ function Status() {
         console.log(resp);
         setResult(resp.data);
         if (resp.data === null) {
-          console.alert("There is no order corresponding to this number, try again with a correct number")
+          alert("There is no order corresponding to this number, try again with a correct number")
         } else {
           console.log("the hasbeenFetched before :" + hasFetched)
           setHasFetched(true);
