@@ -20,14 +20,16 @@ function Status() {
   const [hasFetched, setHasFetched] = useState(false);
 
   const valid = (id) => {
+    if (id === "")
+      return false;
     const regex = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$";
     const result = id.match(regex);
     return result === null ? false : true;
   }
 
 
-  const handleOnclick = async () => {
-    // e.preventDefault();
+  const handleOnclick = async (e) => {
+    e.preventDefault();
     console.log("i am in the handler");
     if (valid(input)) {
       console.log("the order id is correct")
@@ -36,7 +38,7 @@ function Status() {
         console.log(resp);
         setResult(resp.data);
         if (resp.data === null) {
-          console.alert("There is no order corresponding to this number, try again with a correct number")
+          alert("There is no order corresponding to this number, try again with a correct number")
         } else {
           console.log("the hasbeenFetched before :" + hasFetched)
           setHasFetched(true);
@@ -47,7 +49,7 @@ function Status() {
       }
 
     } else {
-      console.log("the order entered was not a valid order id, please try with a correct number");
+      alert("the order entered was not a valid order id, please try with a correct number");
       setInput("");
       setHasFetched(false);
     }
