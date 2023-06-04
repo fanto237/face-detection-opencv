@@ -358,3 +358,4 @@ src/backend/NotificationService/appsettings.json
 src/web/build.zip
 src/backend/ComputerVisionService/Images/
 src/backend/database/
+src/backend/.sonarqube/
