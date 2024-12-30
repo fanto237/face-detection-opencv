@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
@@ -13,13 +13,13 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="MassTransit" Version="8.0.13" />
+        <PackageReference Include="MassTransit" Version="8.3.4" />
         <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.3.1" />
-        <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.13" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
-        <PackageReference Include="OpenCvSharp4" Version="4.7.0.20230115" />
-        <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.7.0.20230115" />
+        <PackageReference Include="MassTransit.RabbitMQ" Version="8.3.4" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0" />
+        <PackageReference Include="OpenCvSharp4" Version="4.10.0.20241108" />
+        <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.10.0.20241108" />
         <!--      <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.7.0.20230115" />-->
         <!--      <PackageReference Include="System.Drawing.Common" Version="7.0.0" />-->
     </ItemGroup>
@@ -32,11 +32,17 @@
         <None Remove="libOpenCvSharpExtern.so" />
     </ItemGroup>
 
+<!--    <ItemGroup>-->
+<!--        <None Remove="Cascades\haarcascade_frontalface_alt.xml" />-->
+<!--        <Resource Include="Cascades\haarcascade_frontalface_alt.xml">-->
+<!--            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>-->
+<!--        </Resource>-->
+<!--    </ItemGroup>-->
     <ItemGroup>
-        <None Remove="Cascades\haarcascade_frontalface_alt.xml" />
-        <Resource Include="Cascades\haarcascade_frontalface_alt.xml">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Resource>
+        <None Update="Cascades/haarcascade_frontalface_alt.xml">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
+
 
 </Project>
