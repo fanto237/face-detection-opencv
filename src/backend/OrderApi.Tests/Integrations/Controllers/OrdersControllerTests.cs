@@ -36,28 +36,3 @@
 //         responseContent.Should().Contain("testuser");
 //     }
 // }
-
-face-detection-opencv/
-├── README.md
-├── src/
-    ├── web/
-    ├── backend/
-            ├── OrderApi/
-            │   ├── OrderApi.csproj
-            │   ├── Dockerfile
-            │   └── ... (source files)
-            ├── ComputerVisionService/
-            │   ├── ComputerVisionService.csproj
-            │   ├── Dockerfile
-            │   └── ... (source files)
-            ├── NotificationService/
-            │   ├── NotificationService.csproj
-            │   ├── Dockerfile
-            │   └── ... (source files)
-            ├── OrderApi.Tests/
-            │   ├── OrderApi.Tests.csproj
-            ├── ComputerVisionService.Tests/
-            │   ├── ComputerVisionService.Tests.csproj
-            ├── NotificationService.Tests/
-            │   ├── NotificationService.Tests.csproj
-            ├── Jenkinsfile
