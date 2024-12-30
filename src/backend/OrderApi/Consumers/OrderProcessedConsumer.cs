@@ -45,7 +45,7 @@ public class OrderProcessedConsumer : IConsumer<IOrderProcessedEvent>
             Faces = msg.FaceData
         });
         _logger.LogInformation("All faces have been added to the database");
-        _logger.LogInformation("The OrderSentEvent has been dispatched !");
+        _logger.LogInformation("The OrderSendEvent has been dispatched !");
         _logger.LogInformation("the faceApi could extract {FaceDataCount} out from the image ", msg.FaceData.Count);
     }
 }
