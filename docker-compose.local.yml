@@ -1,0 +1,47 @@
+services:
+
+  #rabbitmq container service
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    networks:
+      - facesDetec
+    restart: unless-stopped
+
+  # sql server container service
+  db:
+    image: postgres
+    container_name: db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${DATABASE_USER:-fanto}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-fanto237}
+      POSTGRES_DB: ${DATABASE_DATABASE:-OrderDb}
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    restart: unless-stopped
+    networks:
+      - facesDetec
+
+  # database management tool
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: unless-stopped
+    ports:
+      - "8888:8080"
+    networks:
+      - facesDetec
+
+networks:
+  facesDetec:
+    driver: bridge
+
+volumes:
+  postgres:
+    driver: local

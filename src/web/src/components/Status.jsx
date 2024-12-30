@@ -32,22 +32,21 @@ function Status() {
     if (valid(input)) {
       console.log("the order id is correct")
       try {
-        const resp = await instance.get("/api/orders/" + input);
+        const resp = await instance.get("/api/v0/orders/" + input);
         console.log(resp);
         setResult(resp.data);
         if (resp.data === null) {
-          console.alert("There is no order corresponding to this number, try again with a correct number")
+          alert("There is no order corresponding to this number, try again with a correct number")
         } else {
-          console.log("the hasbeenFetched before :" + hasFetched)
+          console.log("the has beenFetched before :" + hasFetched)
           setHasFetched(true);
-          console.log("the hasbeenFetched after :" + hasFetched)
+          console.log("the has beenFetched after :" + hasFetched)
         }
       } catch (err) {
         console.log("the error is : " + err);
       }
-
     } else {
-      console.log("the order entered was not a valid order id, please try with a correct number");
+      alert("the order entered was not a valid order id, please try with a correct number");
       setInput("");
       setHasFetched(false);
     }

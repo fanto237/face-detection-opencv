@@ -91,8 +91,8 @@ function Upload() {
 
     console.log("order has been sent")
     try {
-      const resp = await instance.post("/api/orders", form_data);
-      console.log("the response is: " + resp.data.json);
+      const resp = await instance.post("/api/v0/orders", form_data);
+      console.log("the response is: " + resp.data);
     } catch (err) {
       console.log("the error ist: " + err);
     };

@@ -1,0 +1,135 @@
+﻿pipeline {
+    agent any
+
+    environment {
+        DOTNET_VERSION = '8.0'
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git 'https://github.com/fanto237/face-detection-opencv.git'
+            }
+        }
+
+        stage('Build Micro-Services') {
+            parallel {
+                stage('Build OrderApi') {
+                    steps {
+                        dir('src/backend/OrderApi') {
+                            sh 'dotnet build'
+                        }
+                    }
+                }
+                stage('Build ComputerVisionService') {
+                    steps {
+                        dir('src/backend/ComputerVisionService') {
+                            sh 'dotnet build'
+                        }
+                    }
+                }
+                stage('Build NotificationService') {
+                    steps {
+                        dir('src/backend/NotificationService') {
+                            sh 'dotnet build'
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Run Tests') {
+            parallel {
+                stage('Test OrderApi') {
+                    steps {
+                        dir('src/backend/OrderApi.Tests') {
+                            sh 'dotnet test --logger:trx'
+                        }
+                    }
+                }
+                stage('Test ComputerVisionService') {
+                    steps {
+                        dir('src/backend/ComputerVisionService.Tests') {
+                            sh 'dotnet test --logger:trx'
+                        }
+                    }
+                }
+                stage('Test NotificationService') {
+                    steps {
+                        dir('src/backend/NotificationService.Tests') {
+                            sh 'dotnet test --logger:trx'
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Package Services') {
+            parallel {
+                stage('Package OrderApi') {
+                    steps {
+                        dir('src/backend/OrderApi') {
+                            sh 'dotnet publish -c Release -o ./publish'
+                        }
+                    }
+                }
+                stage('Package ComputerVisionService') {
+                    steps {
+                        dir('src/backend/ComputerVisionService') {
+                            sh 'dotnet publish -c Release -o ./publish'
+                        }
+                    }
+                }
+                stage('Package NotificationService') {
+                    steps {
+                        dir('src/backend/NotificationService') {
+                            sh 'dotnet publish -c Release -o ./publish'
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Dockerize Services') {
+            parallel {
+                stage('Dockerize OrderApi') {
+                    steps {
+                        dir('src/backend/OrderApi') {
+                            sh 'docker build -t fanto98/order-api:latest .'
+                        }
+                    }
+                }
+                stage('Dockerize ComputerVisionService') {
+                    steps {
+                        dir('src/backend/ComputerVisionService') {
+                            sh 'docker build -t fanto98/computer-vision-service:latest .'
+                        }
+                    }
+                }
+                stage('Dockerize NotificationService') {
+                    steps {
+                        dir('src/backend/NotificationService') {
+                            sh 'docker build -t fanto98/notification-service:latest .'
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Deploy Services') {
+            steps {
+                echo 'Deploy logic goes here, e.g., Docker Compose or Kubernetes.'
+                sh 'docker-compose -f src/backend/docker-compose.yml down && docker-compose -f src/backend/docker-compose.yml up -d'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}

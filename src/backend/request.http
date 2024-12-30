@@ -1,0 +1,61 @@
+# @url = https://localhost:7259
+@url = http://localhost:5157
+@order-id = 31b593bb-a6c7-4022-0dac-cd2bc93f74a6
+
+
+
+GET {{url}}/api/v0/orders/{{order-id}}
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+POST {{url}}/api/v0/orders
+Authorization: Bearer {{token}}
+Accept: application/json
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="orderid"
+
+{{order-id}}
+--boundary
+Content-Disposition: form-data; name="email"
+
+lucien@fanto.dev
+--boundary
+Content-Disposition: form-data; name="username"
+
+fanto
+--boundary
+Content-Disposition: form-data; name="imagefile"; filename="best_image.jpeg"
+Content-Type: image/jpeg
+
+< ./best-image.jpg
+--boundary
+Content-Disposition: form-data; name="imagename";
+
+best_image.jpeg
+--boundary--
+
+###
+
+POST {{url}}/api/v0/usersAuth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username": "fantoSama",
+  "password": "Sanada237"
+}
+
+###
+POST {{url}}/api/v0/usersAuth/register
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Luc",
+  "username": "fantoSama",
+  "email": "fanto@fanto.dev",
+  "password": "Sanada237"
+}
