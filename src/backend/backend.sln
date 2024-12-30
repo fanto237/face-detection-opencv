@@ -13,7 +13,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerVisionService", "Co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{AF13F631-EF78-463A-A511-7366A871D137}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderApiTests", "OrderApiTests\OrderApiTests.csproj", "{32186698-A0C1-443C-A16C-D3ED8F15CE94}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderApi.Tests", "OrderApi.Tests\OrderApi.Tests.csproj", "{32186698-A0C1-443C-A16C-D3ED8F15CE94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Tests", "NotificationService.Tests\NotificationService.Tests.csproj", "{5C1662A3-3144-4271-8AF9-6F718847C2DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerVisionService.Tests", "ComputerVisionService.Tests\ComputerVisionService.Tests.csproj", "{3325BCE0-812E-4024-AB0B-10459453DDD3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +45,14 @@ Global
 		{32186698-A0C1-443C-A16C-D3ED8F15CE94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32186698-A0C1-443C-A16C-D3ED8F15CE94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32186698-A0C1-443C-A16C-D3ED8F15CE94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C1662A3-3144-4271-8AF9-6F718847C2DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C1662A3-3144-4271-8AF9-6F718847C2DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C1662A3-3144-4271-8AF9-6F718847C2DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C1662A3-3144-4271-8AF9-6F718847C2DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3325BCE0-812E-4024-AB0B-10459453DDD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3325BCE0-812E-4024-AB0B-10459453DDD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3325BCE0-812E-4024-AB0B-10459453DDD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3325BCE0-812E-4024-AB0B-10459453DDD3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,5 +62,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{32186698-A0C1-443C-A16C-D3ED8F15CE94} = {AF13F631-EF78-463A-A511-7366A871D137}
+		{5C1662A3-3144-4271-8AF9-6F718847C2DC} = {AF13F631-EF78-463A-A511-7366A871D137}
+		{3325BCE0-812E-4024-AB0B-10459453DDD3} = {AF13F631-EF78-463A-A511-7366A871D137}
 	EndGlobalSection
 EndGlobal
