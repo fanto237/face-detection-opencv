@@ -14,7 +14,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: change dir to solution
-        run: cd src/backend
+        run: |
+          cd ./src/backend
+          pwd
+        working-directory: ./src/backend
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
