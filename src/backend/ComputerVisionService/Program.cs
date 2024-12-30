@@ -1,4 +1,5 @@
 ﻿using ComputerVisionService.Consumers;
+using ComputerVisionService.Services;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -35,7 +36,7 @@ public class Program
                     });
                 });
 
-                services.AddSingleton<IFaceHandler, FaceHandler>();
+                services.AddSingleton<IFaceDetectionServices, FaceDetectionServices>();
             })
             .ConfigureAppConfiguration((hostcontext, config) => { });
         return host;
